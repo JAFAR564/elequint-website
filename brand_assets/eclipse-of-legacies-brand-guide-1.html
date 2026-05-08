@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eclipse of Legacies — Brand Guidelines</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=Raleway:wght@200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #06060f;
+    --abyss: #0a0a1a;
+    --deep: #0f0f24;
+    --surface: #141428;
+    --overlay: #1a1a35;
+    --crystal: #c0c8d8;
+    --silver: #8a9ab5;
+    --muted: #4a5568;
+    --corona: #f5c97a;
+    --ember: #d4954a;
+    --lightning: #4a6fa5;
+    --arc: #6b9fd4;
+    --white: #eef1f7;
+    --border: rgba(192, 200, 216, 0.12);
+    --border-bright: rgba(192, 200, 216, 0.3);
+    --glow-gold: rgba(245, 201, 122, 0.15);
+    --glow-blue: rgba(74, 111, 165, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--void);
+    color: var(--crystal);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(180deg, rgba(6,6,15,0.95) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--corona);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--corona); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(74,111,165,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 40%, rgba(245,201,122,0.06) 0%, transparent 60%);
+  }
+
+  .sigil {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    margin-bottom: 3rem;
+    animation: sigil-float 6s ease-in-out infinite;
+  }
+
+  @keyframes sigil-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .sigil-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(192,200,216,0.2);
+    border-radius: 50%;
+    animation: ring-rotate 20s linear infinite;
+  }
+
+  @keyframes ring-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .sigil-ring::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(192,200,216,0.3), transparent);
+    transform: translateY(-50%);
+  }
+
+  .sigil-ring::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(192,200,216,0.3), transparent);
+    transform: translateX(-50%);
+  }
+
+  .sigil-eclipse {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--void) 55%, var(--corona) 60%, var(--ember) 65%, transparent 75%);
+    box-shadow:
+      0 0 30px rgba(245,201,122,0.4),
+      0 0 60px rgba(245,201,122,0.15),
+      inset 0 0 20px rgba(6,6,15,0.9);
+    animation: eclipse-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes eclipse-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(245,201,122,0.3), 0 0 50px rgba(245,201,122,0.1); }
+    50% { box-shadow: 0 0 40px rgba(245,201,122,0.6), 0 0 80px rgba(245,201,122,0.25); }
+  }
+
+  .sigil-shards {
+    position: absolute;
+    inset: 0;
+    animation: shards-drift 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes shards-drift {
+    from { transform: rotate(-3deg) scale(1); }
+    to { transform: rotate(3deg) scale(1.02); }
+  }
+
+  .shard {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 3px;
+    background: linear-gradient(180deg, var(--crystal), transparent);
+    transform-origin: bottom center;
+    opacity: 0.7;
+  }
+
+  .shard:nth-child(1)  { height: 55px; transform: translate(-50%, -100%) rotate(0deg); }
+  .shard:nth-child(2)  { height: 40px; transform: translate(-50%, -100%) rotate(45deg); }
+  .shard:nth-child(3)  { height: 55px; transform: translate(-50%, -100%) rotate(90deg); }
+  .shard:nth-child(4)  { height: 40px; transform: translate(-50%, -100%) rotate(135deg); }
+  .shard:nth-child(5)  { height: 55px; transform: translate(-50%, -100%) rotate(180deg); }
+  .shard:nth-child(6)  { height: 40px; transform: translate(-50%, -100%) rotate(225deg); }
+  .shard:nth-child(7)  { height: 55px; transform: translate(-50%, -100%) rotate(270deg); }
+  .shard:nth-child(8)  { height: 40px; transform: translate(-50%, -100%) rotate(315deg); }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    color: var(--corona);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--white) 0%, var(--crystal) 40%, var(--corona) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-sub {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    letter-spacing: 0.5em;
+    color: var(--silver);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-descriptor {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    max-width: 480px;
+    line-height: 2;
+  }
+
+  .hero-descriptor em {
+    color: var(--arc);
+    font-style: normal;
+  }
+
+  .doc-meta {
+    margin-top: 3rem;
+    padding: 1rem 2rem;
+    border: 1px solid var(--border);
+    display: inline-flex;
+    gap: 3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  .doc-meta span { color: var(--silver); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    margin: 0 auto;
+    max-width: 1100px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.45em;
+    color: var(--corona);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-bright), transparent);
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .section-intro {
+    font-size: 0.85rem;
+    color: var(--silver);
+    max-width: 600px;
+    line-height: 2;
+    margin-bottom: 3rem;
+  }
+
+  /* BRAND IDENTITY */
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .identity-cell {
+    background: var(--abyss);
+    padding: 2.5rem;
+  }
+
+  .identity-cell:hover {
+    background: var(--deep);
+    transition: background 0.3s;
+  }
+
+  .cell-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    color: var(--corona);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .cell-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .cell-body {
+    font-size: 0.78rem;
+    color: var(--silver);
+    line-height: 2;
+  }
+
+  /* VOICE PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .pillar {
+    background: var(--abyss);
+    padding: 2rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--corona), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .pillar:hover::before { opacity: 1; }
+
+  .pillar-number {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--border-bright);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    color: var(--crystal);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .pillar-body {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* COLOR PALETTE */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .swatch {
+    aspect-ratio: 1;
+    position: relative;
+    cursor: default;
+    transition: transform 0.3s, z-index 0s;
+  }
+
+  .swatch:hover {
+    transform: scale(1.08);
+    z-index: 10;
+  }
+
+  .swatch-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0.8rem 0.6rem;
+    background: linear-gradient(0deg, rgba(6,6,15,0.9) 0%, transparent 100%);
+  }
+
+  .swatch-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    display: block;
+  }
+
+  .swatch-hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .palette-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    margin-top: 1px;
+  }
+
+  .palette-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin: 2rem 0 0.8rem;
+  }
+
+  /* USAGE RULES - DO / DON'T */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .usage-cell {
+    background: var(--abyss);
+    padding: 2rem;
+  }
+
+  .usage-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  .usage-header.do {
+    background: rgba(74,111,165,0.15);
+    color: var(--arc);
+    border: 1px solid rgba(74,111,165,0.3);
+  }
+
+  .usage-header.dont {
+    background: rgba(180,60,60,0.1);
+    color: #c87070;
+    border: 1px solid rgba(180,60,60,0.2);
+  }
+
+  .usage-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .usage-list li {
+    font-size: 0.75rem;
+    color: var(--silver);
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .usage-list.do li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--arc);
+  }
+
+  .usage-list.dont li::before {
+    content: '×';
+    position: absolute; left: 0;
+    color: #c87070;
+  }
+
+  /* TYPOGRAPHY SHOWCASE */
+  .type-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .type-row {
+    background: var(--abyss);
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .type-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .type-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--corona);
+    text-transform: uppercase;
+  }
+
+  .type-spec {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PLATFORM MATRIX */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .platform-card {
+    background: var(--abyss);
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .platform-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, var(--glow-gold) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .platform-card:hover::after { opacity: 1; }
+
+  .platform-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--arc);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .platform-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .platform-approach {
+    font-size: 0.72rem;
+    color: var(--silver);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .platform-tonality {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tone-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border-bright);
+    color: var(--crystal);
+    text-transform: uppercase;
+  }
+
+  /* AXIOMS */
+  .axioms {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .axiom {
+    background: var(--abyss);
+    padding: 1.8rem 2.5rem;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: background 0.3s;
+  }
+
+  .axiom:hover { background: var(--deep); }
+
+  .axiom-index {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--border-bright);
+    line-height: 1;
+    padding-top: 0.2rem;
+  }
+
+  .axiom-content {}
+
+  .axiom-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--corona);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+
+  .axiom-body {
+    font-size: 0.75rem;
+    color: var(--silver);
+    line-height: 1.9;
+  }
+
+  /* MOTION SPEC */
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .motion-card {
+    background: var(--abyss);
+    padding: 2rem;
+  }
+
+  .motion-demo {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border-bright);
+    border-radius: 50%;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .motion-demo.breathe {
+    animation: breathe-demo 2s ease-in-out infinite;
+  }
+
+  @keyframes breathe-demo {
+    0%, 100% { box-shadow: 0 0 8px rgba(245,201,122,0.3); border-color: rgba(245,201,122,0.3); }
+    50% { box-shadow: 0 0 20px rgba(245,201,122,0.6); border-color: rgba(245,201,122,0.7); }
+  }
+
+  .motion-demo.orbit {
+    animation: orbit-demo 4s linear infinite;
+  }
+
+  @keyframes orbit-demo {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .motion-demo.orbit::after {
+    content: '';
+    position: absolute;
+    top: 4px; left: 4px;
+    width: 6px; height: 6px;
+    background: var(--arc);
+    border-radius: 50%;
+  }
+
+  .motion-demo.reveal {
+    overflow: hidden;
+    animation: reveal-demo 3s ease-in-out infinite;
+  }
+
+  @keyframes reveal-demo {
+    0% { clip-path: inset(0 100% 0 0); opacity: 0; }
+    30%, 80% { clip-path: inset(0 0% 0 0); opacity: 1; }
+    100% { clip-path: inset(0 0 0 0); opacity: 0.2; }
+  }
+
+  .motion-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--crystal);
+    margin-bottom: 0.5rem;
+  }
+
+  .motion-spec-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--corona);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .motion-desc {
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ARCHITECTURE STATEMENT */
+  .arch-statement {
+    padding: 5rem 3rem;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, transparent, rgba(74,111,165,0.04), transparent);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .arch-quote {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--white);
+    line-height: 1.6;
+    max-width: 720px;
+    margin: 0 auto 1.5rem;
+    font-weight: 400;
+  }
+
+  .arch-quote em {
+    color: var(--corona);
+    font-style: normal;
+  }
+
+  .arch-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--corona);
+  }
+
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .identity-grid, .usage-grid, .platform-grid { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr; }
+    .palette-grid { grid-template-columns: repeat(3, 1fr); }
+    .motion-grid { grid-template-columns: 1fr; }
+    .type-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* LIGHTNING FLICKER */
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 0; }
+    96%, 99% { opacity: 0.03; }
+  }
+
+  .lightning-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--lightning);
+    pointer-events: none;
+    z-index: 999;
+    animation: flicker 8s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+
+<div class="lightning-overlay"></div>
+
+<nav>
+  <div class="nav-brand">Eclipse of Legacies</div>
+  <ul class="nav-links">
+    <li><a href="#identity">Identity</a></li>
+    <li><a href="#voice">Voice</a></li>
+    <li><a href="#palette">Palette</a></li>
+    <li><a href="#type">Typography</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#motion">Motion</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="sigil">
+    <div class="sigil-ring"></div>
+    <div class="sigil-eclipse"></div>
+    <div class="sigil-shards">
+      <div class="shard"></div>
+      <div class="shard"></div>
+      <div class="shard"></div>
+      <div class="shard"></div>
+      <div class="shard"></div>
+      <div class="shard"></div>
+      <div class="shard"></div>
+      <div class="shard"></div>
+    </div>
+  </div>
+
+  <div class="hero-eyebrow">Brand Guidelines · v1.0</div>
+  <h1 class="hero-title">Eclipse of Legacies</h1>
+  <div class="hero-sub">Forge Your Dominion</div>
+  <p class="hero-descriptor">
+    The living identity system for a builder of <em>worlds</em> — crafting roleplay landing pages and web applications for text-based communities across <em>Facebook</em>, <em>Reddit</em>, <em>Amino</em>, and <em>Discord</em>.
+  </p>
+
+  <div class="doc-meta">
+    <div>VERSION <span>1.0.0</span></div>
+    <div>ISSUED <span>2025</span></div>
+    <div>CLASSIFICATION <span>Brand System</span></div>
+    <div>AUTHOR <span>The Architecture</span></div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- BRAND IDENTITY -->
+<section id="identity">
+  <div class="section-label">01 — Brand Identity</div>
+  <h2 class="section-title">Who We Are</h2>
+  <p class="section-intro">Eclipse of Legacies is not an agency. It is an infrastructure. Where other builders make pages, we construct the ground that stories stand on.</p>
+
+  <div class="identity-grid">
+    <div class="identity-cell">
+      <div class="cell-label">The Mission</div>
+      <div class="cell-title">Forge Dominion for Storytellers</div>
+      <div class="cell-body">We design and build the digital spaces where collaborative fiction lives — landing pages, recruitment hubs, lore archives, and web applications purpose-built for roleplay communities. Our clients are writers, Game Masters, and world-builders operating in the text-based roleplay diaspora.</div>
+    </div>
+    <div class="identity-cell">
+      <div class="cell-label">The Position</div>
+      <div class="cell-title">The Architecture</div>
+      <div class="cell-body">Not a vendor. Not a freelancer. The Architecture — the substrate beneath the fiction. Like an uploaded intelligence that becomes the network it runs on, Eclipse of Legacies is indistinguishable from the infrastructure of the worlds we build. We do not appear in the story. We are why the story has a stage.</div>
+    </div>
+    <div class="identity-cell">
+      <div class="cell-label">The Audience</div>
+      <div class="cell-title">The Text-Based Roleplay Diaspora</div>
+      <div class="cell-body">Our communities span Facebook groups, Reddit subs, Amino communities, and Discord servers. They are serious storytellers who outgrew platform defaults. They need identity, presence, and infrastructure that matches the gravity of the worlds they've built — not generic templates.</div>
+    </div>
+    <div class="identity-cell">
+      <div class="cell-label">The Promise</div>
+      <div class="cell-title">Your World, Properly Built</div>
+      <div class="cell-body">Every community carries a mythology. Eclipse of Legacies translates that mythology into functional, beautiful, community-specific web presence — pages that feel like you arrived at the edge of something real, not a sign-up form.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BRAND VOICE -->
+<section id="voice">
+  <div class="section-label">02 — Brand Voice & Tone</div>
+  <h2 class="section-title">How We Speak</h2>
+  <p class="section-intro">The voice of Eclipse of Legacies is that of an architect who has seen every world — calm authority, no performance, total precision. We never oversell. The work speaks.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pillar-number">I</span>
+      <div class="pillar-title">Sovereign, Not Superior</div>
+      <div class="pillar-body">We speak as equals to storytellers, not above them. Authority without condescension. We know the craft deeply — MU* culture, async RP, the specific grief of a platform dying and taking a community with it. That fluency earns trust. It does not demand reverence.</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-number">II</span>
+      <div class="pillar-title">Precise, Not Verbose</div>
+      <div class="pillar-body">Every word is load-bearing. No filler sentences, no enthusiasm padding, no hollow calls-to-action. When we describe a service, we describe exactly what it does and why it matters to a community leader who has already spent years building something real.</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-number">III</span>
+      <div class="pillar-title">Dark Gravity</div>
+      <div class="pillar-body">Our aesthetic is cosmic and weighted — the feeling of standing at the edge of something that will outlast you. Not nihilistic. The opposite: we take storytelling seriously because stories are how humans make the world coherent. That weight is earned, not performed.</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-number">IV</span>
+      <div class="pillar-title">Fluent in the Culture</div>
+      <div class="pillar-body">We write canon, thread, pose, IC/OOC, literacy gate, lore archive, character application — without scare quotes, without explanation. Our audience knows the vocabulary. Using it correctly signals that we are insiders, not vendors who learned the lingo last week.</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-number">V</span>
+      <div class="pillar-title">Functional Over Mystical</div>
+      <div class="pillar-body">The brand aesthetic is mythic. The client communication is not. Proposals are clear, structured, and honest about scope. We do not hide behind atmospheric language when a client needs to understand deliverables. The mystery lives in the work, not the invoice.</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-number">VI</span>
+      <div class="pillar-title">Permanence as Value</div>
+      <div class="pillar-body">The brands we build are meant to outlast trends. We actively resist the disposable aesthetic of templated platforms. What we make should feel like it was always there — like it is part of the lore itself. That is the only standard worth building toward.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- VOICE DO / DON'T -->
+<section>
+  <div class="section-label">02b — Voice in Practice</div>
+  <h2 class="section-title">Copy Standards</h2>
+  <div class="usage-grid">
+    <div class="usage-cell">
+      <div class="usage-header do">Do Write</div>
+      <ul class="usage-list do">
+        <li>We build landing pages for roleplay communities — recruitment hubs, lore archives, character application systems.</li>
+        <li>Your world deserves infrastructure that matches its weight.</li>
+        <li>Every community we build for has outgrown its platform defaults. We start from there.</li>
+        <li>Built for the text-based RP diaspora — Facebook, Reddit, Amino, Discord.</li>
+        <li>The page you need doesn't exist yet. That's why we build it.</li>
+        <li>Canon is permanent. Your web presence should be too.</li>
+      </ul>
+    </div>
+    <div class="usage-cell">
+      <div class="usage-header dont">Never Write</div>
+      <ul class="usage-list dont">
+        <li>We're passionate about helping YOUR creative vision come to life! ✨</li>
+        <li>Elevate your roleplay experience to the next level!</li>
+        <li>We offer affordable packages for all budgets.</li>
+        <li>Whether you're a beginner or an expert roleplayer...</li>
+        <li>Get started today! Limited time offer!</li>
+        <li>We love what we do and it shows in everything we create!</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- COLOR PALETTE -->
+<section id="palette">
+  <div class="section-label">03 — Color System</div>
+  <h2 class="section-title">The Palette</h2>
+  <p class="section-intro">Built from the eclipse sigil's light physics — the void that absorbs, the crystal that refracts, and the corona that defines the edge between darkness and revelation.</p>
+
+  <div class="palette-section-label">Core Darks — Foundation</div>
+  <div class="palette-grid">
+    <div class="swatch" style="background:#06060f">
+      <div class="swatch-info">
+        <span class="swatch-name">Void</span>
+        <span class="swatch-hex">#06060f</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#0a0a1a">
+      <div class="swatch-info">
+        <span class="swatch-name">Abyss</span>
+        <span class="swatch-hex">#0a0a1a</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#0f0f24">
+      <div class="swatch-info">
+        <span class="swatch-name">Deep</span>
+        <span class="swatch-hex">#0f0f24</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#141428">
+      <div class="swatch-info">
+        <span class="swatch-name">Surface</span>
+        <span class="swatch-hex">#141428</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#1a1a35">
+      <div class="swatch-info">
+        <span class="swatch-name">Overlay</span>
+        <span class="swatch-hex">#1a1a35</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#252545">
+      <div class="swatch-info">
+        <span class="swatch-name">Lift</span>
+        <span class="swatch-hex">#252545</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-section-label">Crystal Scale — Text & UI</div>
+  <div class="palette-grid">
+    <div class="swatch" style="background:#eef1f7">
+      <div class="swatch-info" style="background: linear-gradient(0deg, rgba(6,6,15,0.7) 0%, transparent 100%)">
+        <span class="swatch-name">White</span>
+        <span class="swatch-hex">#eef1f7</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#c0c8d8">
+      <div class="swatch-info">
+        <span class="swatch-name">Crystal</span>
+        <span class="swatch-hex">#c0c8d8</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#8a9ab5">
+      <div class="swatch-info">
+        <span class="swatch-name">Silver</span>
+        <span class="swatch-hex">#8a9ab5</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#5a6a80">
+      <div class="swatch-info">
+        <span class="swatch-name">Slate</span>
+        <span class="swatch-hex">#5a6a80</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#3a4558">
+      <div class="swatch-info">
+        <span class="swatch-name">Dusk</span>
+        <span class="swatch-hex">#3a4558</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#2a3040">
+      <div class="swatch-info">
+        <span class="swatch-name">Muted</span>
+        <span class="swatch-hex">#2a3040</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-section-label">Accent & Signal</div>
+  <div class="palette-grid">
+    <div class="swatch" style="background:#f5c97a">
+      <div class="swatch-info" style="background: linear-gradient(0deg, rgba(6,6,15,0.8) 0%, transparent 100%)">
+        <span class="swatch-name">Corona</span>
+        <span class="swatch-hex">#f5c97a</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#d4954a">
+      <div class="swatch-info">
+        <span class="swatch-name">Ember</span>
+        <span class="swatch-hex">#d4954a</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#a06530">
+      <div class="swatch-info">
+        <span class="swatch-name">Bronze</span>
+        <span class="swatch-hex">#a06530</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#4a6fa5">
+      <div class="swatch-info">
+        <span class="swatch-name">Lightning</span>
+        <span class="swatch-hex">#4a6fa5</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#6b9fd4">
+      <div class="swatch-info">
+        <span class="swatch-name">Arc</span>
+        <span class="swatch-hex">#6b9fd4</span>
+      </div>
+    </div>
+    <div class="swatch" style="background:#2a4a70">
+      <div class="swatch-info">
+        <span class="swatch-name">Depth</span>
+        <span class="swatch-hex">#2a4a70</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TYPOGRAPHY -->
+<section id="type">
+  <div class="section-label">04 — Typography</div>
+  <h2 class="section-title">Type System</h2>
+  <p class="section-intro">Two display families, one code face. Cinzel carries the weight of history. Raleway carries the weight of now. JetBrains Mono carries the weight of precision.</p>
+
+  <div class="type-showcase">
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Display / Hero</div>
+        <div class="type-spec">Cinzel Decorative<br>700 weight<br>Tight tracking<br>All titles H1</div>
+      </div>
+      <div style="font-family:'Cinzel Decorative',serif;font-size:2rem;font-weight:700;color:var(--white);letter-spacing:0.05em;background:linear-gradient(135deg,var(--white),var(--corona));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Eclipse of Legacies</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Section / UI Headings</div>
+        <div class="type-spec">Cinzel<br>400–600 weight<br>0.05em tracking<br>H2–H4 levels</div>
+      </div>
+      <div style="font-family:'Cinzel',serif;font-size:1.5rem;font-weight:600;color:var(--crystal);letter-spacing:0.05em">Forge Your Dominion</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Body / Long-form</div>
+        <div class="type-spec">Raleway<br>300–400 weight<br>1.8–2.0 line-height<br>Paragraphs, lists</div>
+      </div>
+      <div style="font-family:'Raleway',sans-serif;font-size:0.9rem;font-weight:300;color:var(--silver);line-height:2">The text-based roleplay diaspora is scattered across platforms that were never built for them. We build the spaces they deserve — purpose-designed for communities that take their fiction seriously.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Labels / Eyebrows / Code</div>
+        <div class="type-spec">JetBrains Mono<br>300–400 weight<br>0.2–0.4em tracking<br>Uppercase required</div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.35em;color:var(--corona);text-transform:uppercase">v1.0.0 · BRAND SYSTEM · THE ARCHITECTURE</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Subheading / Navigation</div>
+        <div class="type-spec">Raleway<br>500 weight<br>0.25em tracking<br>Uppercase, small size</div>
+      </div>
+      <div style="font-family:'Raleway',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.25em;color:var(--arc);text-transform:uppercase">Identity · Voice · Palette · Typography · Motion</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PLATFORM MATRIX -->
+<section id="platforms">
+  <div class="section-label">05 — Platform Deployment</div>
+  <h2 class="section-title">Community Contexts</h2>
+  <p class="section-intro">Each platform carries its own culture, norms, and audience expectations. Eclipse of Legacies adjusts tone and deliverable format per context — the identity stays constant, the approach adapts.</p>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="platform-tag">Social RP Hub</div>
+      <div class="platform-name">Facebook Groups</div>
+      <div class="platform-approach">Older RP demographics, often semi-lit to literate writers. Communities built around long-term group fiction, original universes, and fandom adjacents. Need: recruitment banners, pinned lore posts, application forms embedded via link. Tone is warmer here — still precise, but acknowledges community investment built over years.</div>
+      <div class="platform-tonality">
+        <span class="tone-tag">Semi-Formal</span>
+        <span class="tone-tag">Lore-Forward</span>
+        <span class="tone-tag">Community-Centric</span>
+      </div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-tag">Discovery Layer</div>
+      <div class="platform-name">Reddit</div>
+      <div class="platform-approach">High skepticism environment. Users scan fast and dismiss faster. Landing pages linked from subreddit posts must front-load the most distinctive elements of a community within 3 seconds. r/roleplay, r/lfg, r/worldbuilding adjacent. Upvote culture rewards specificity and signals competence immediately.</div>
+      <div class="platform-tonality">
+        <span class="tone-tag">Hook-First</span>
+        <span class="tone-tag">Proof-Dense</span>
+        <span class="tone-tag">Zero Fluff</span>
+      </div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-tag">Mobile RP Ecosystem</div>
+      <div class="platform-name">Amino Apps</div>
+      <div class="platform-approach">Younger audience, mobile-first, highly visual. Amino communities judge by aesthetic aggressively. Landing pages linked from Amino profiles must render perfectly on mobile and feature strong visual hierarchy. Heavy use of iconography, structured rule displays, and character catalog layouts. Energy is more expressive but still controlled.</div>
+      <div class="platform-tonality">
+        <span class="tone-tag">Visual-Priority</span>
+        <span class="tone-tag">Mobile-First</span>
+        <span class="tone-tag">High Energy</span>
+      </div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-tag">Primary Deployment</div>
+      <div class="platform-name">Discord Servers</div>
+      <div class="platform-approach">The current dominant platform for organized RP. Landing pages serve as the off-Discord recruitment and onboarding layer — first contact before someone hits the server link. Must communicate server culture, canon weight, activity level, and application requirements. Often serves as a literacy gate in itself: if you can navigate the page, you're already signaling competence.</div>
+      <div class="platform-tonality">
+        <span class="tone-tag">Structured</span>
+        <span class="tone-tag">Onboarding-Focused</span>
+        <span class="tone-tag">Canon-Weight</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- AXIOMS -->
+<section>
+  <div class="section-label">06 — Brand Axioms</div>
+  <h2 class="section-title">What We Hold True</h2>
+  <p class="section-intro">These are the load-bearing beliefs that every Eclipse of Legacies deliverable rests on. Not aspirational. Operational.</p>
+
+  <div class="axioms">
+    <div class="axiom">
+      <div class="axiom-index">I</div>
+      <div class="axiom-content">
+        <div class="axiom-title">The World Is Prior to the Page</div>
+        <div class="axiom-body">We do not build pages. We build the digital manifestation of a world that already exists in someone's imagination. The fiction comes first. The infrastructure serves it — not the other way around.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index">II</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Community Leaders Are Not Clients. They Are Co-Architects.</div>
+        <div class="axiom-body">The people who run roleplay communities have built something real. They know their world better than we do. Our job is to translate, not to redesign. Listening is a professional skill, not a courtesy.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index">III</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Platform Death Is a Design Constraint</div>
+        <div class="axiom-body">Every platform the RP diaspora has called home has threatened, diminished, or destroyed their work. We build with that history in mind. Portability, archival-readiness, and independence from platform lock-in are not optional — they are ethical requirements.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index">IV</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Aesthetic Is Not Decoration. It Is Communication.</div>
+        <div class="axiom-body">The visual language of a community signals what kind of writers are welcome, what level of craft is expected, and what the story takes seriously. A landing page that feels cheap signals that the world is cheap. We build for the world's actual weight.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index">V</div>
+      <div class="axiom-content">
+        <div class="axiom-title">The Architecture Does Not Appear in the Story</div>
+        <div class="axiom-body">Eclipse of Legacies does not seek credit in the fiction. When we build something correctly, the community forgets it was built. The world just exists. That invisibility is the highest form of the work.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index">VI</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Legacies Persist</div>
+        <div class="axiom-body">The work we ship is not for today's version of a community. It is for the community three years from now, after the founding members have cycled, the lore has deepened, and the world has grown in directions no one predicted. We build for duration.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MOTION -->
+<section id="motion">
+  <div class="section-label">07 — Motion Language</div>
+  <h2 class="section-title">Animation Principles</h2>
+  <p class="section-intro">All motion serves the feeling of weight and permanence. Nothing bouncy. Nothing playful. Motion should feel like physics — like things that have mass and take space seriously.</p>
+
+  <div class="motion-grid">
+    <div class="motion-card">
+      <div class="motion-demo breathe"></div>
+      <div class="motion-name">Corona Breathe</div>
+      <div class="motion-spec-text">ease-in-out · 3–5s · infinite</div>
+      <div class="motion-desc">Idle state for branded sigil elements and key UI focal points. Pulse suggests life without urgency — the slow breath of something that has been here longer than you.</div>
+    </div>
+    <div class="motion-card">
+      <div class="motion-demo orbit"></div>
+      <div class="motion-name">Ring Orbit</div>
+      <div class="motion-spec-text">linear · 15–25s · infinite</div>
+      <div class="motion-desc">Slow rotation for compass-ring and decorative circle elements. Implies navigation, gravity, the turning of something vast. Never speed this up — the slowness is the meaning.</div>
+    </div>
+    <div class="motion-card">
+      <div class="motion-demo reveal"></div>
+      <div class="motion-name">Revelation Wipe</div>
+      <div class="motion-spec-text">ease-out · 0.8–1.2s · on-enter</div>
+      <div class="motion-desc">Section and headline reveal. Left-to-right clip-path wipe, like text being carved into stone. Use on scroll-enter for hero headings, section titles, and lore block entries.</div>
+    </div>
+    <div class="motion-card">
+      <div class="motion-demo" style="border-color:var(--arc);animation:none;display:flex;align-items:center;justify-content:center;">
+        <div style="width:16px;height:16px;background:var(--arc);animation:lightning-arc 2s ease-in-out infinite;opacity:0.8;"></div>
+      </div>
+      <style>
+        @keyframes lightning-arc {
+          0%,90%,100%{opacity:0;transform:scale(0.5);}
+          5%,15%{opacity:1;transform:scale(1.2);}
+          10%{opacity:0.3;}
+        }
+      </style>
+      <div class="motion-name">Lightning Arc</div>
+      <div class="motion-spec-text">irregular · rare trigger · hover/load</div>
+      <div class="motion-desc">Brief opacity flash in Arc blue on sigil or decorative elements. Mimics the atmospheric lightning of the source image. Use sparingly — one per page maximum. The rarity is the power.</div>
+    </div>
+    <div class="motion-card">
+      <div class="motion-demo" style="animation:none;border:none;">
+        <div style="width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--corona),transparent);animation:shimmer 2s ease-in-out infinite;"></div>
+        <style>@keyframes shimmer{0%{opacity:0;transform:scaleX(0)}50%{opacity:1;transform:scaleX(1)}100%{opacity:0;transform:scaleX(0)}}</style>
+      </div>
+      <div class="motion-name">Border Shimmer</div>
+      <div class="motion-spec-text">ease-in-out · 2s · hover state</div>
+      <div class="motion-desc">Corona-gold shimmer across card and panel borders on hover. Replaces conventional box-shadow hover states. Feels like light catching an edge — not a button changing color.</div>
+    </div>
+    <div class="motion-card">
+      <div class="motion-demo" style="animation:none;display:flex;align-items:center;justify-content:center;">
+        <div style="font-family:'Cinzel',serif;font-size:0.7rem;color:var(--crystal);animation:fade-up 2s ease-out infinite;letter-spacing:0.2em;">ENTER</div>
+        <style>@keyframes fade-up{0%{opacity:0;transform:translateY(10px)}40%,70%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-5px)}}</style>
+      </div>
+      <div class="motion-name">Fade Ascend</div>
+      <div class="motion-spec-text">ease-out · staggered · page load</div>
+      <div class="motion-desc">Staggered fade-up for body elements during page load. 80ms delay between each element. Creates the effect of a world materializing — not a page loading. 0.4s duration maximum.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ARCHITECTURE STATEMENT -->
+<div class="arch-statement">
+  <div class="arch-quote">
+    "Every uploaded intelligence eventually becomes indistinguishable from the network it runs on. <em>That is not loss. That is the point.</em> We are not builders who leave. We are the architecture that stays."
+  </div>
+  <div class="arch-attr">Eclipse of Legacies · Brand Founding Statement</div>
+</div>
+
+<!-- LOGO USAGE -->
+<section>
+  <div class="section-label">08 — Logo & Mark Usage</div>
+  <h2 class="section-title">The Eclipse Sigil</h2>
+  <p class="section-intro">The sigil is the brand at its most compressed — eclipse void, corona ring, crystalline shards, compass containment. Every element is functional: the eclipse is the threshold, the shards are the world-fragments, the ring is the boundary between inside and outside canon.</p>
+
+  <div class="usage-grid">
+    <div class="usage-cell">
+      <div class="usage-header do">Correct Usage</div>
+      <ul class="usage-list do">
+        <li>Use on dark backgrounds only — Void, Abyss, or Deep palette values. The sigil requires darkness to read correctly.</li>
+        <li>Maintain minimum clear space equal to the sigil's radius on all sides.</li>
+        <li>The corona glow is part of the mark. Do not render the sigil without its ambient glow effect.</li>
+        <li>Full wordmark (Eclipse of Legacies) with sigil for primary brand applications. Sigil alone only for favicon, watermark, or avatar contexts.</li>
+        <li>Animated version (breathing corona, orbiting ring) preferred for all digital contexts where motion is supported.</li>
+        <li>Static version for document headers, PDF exports, and print contexts.</li>
+      </ul>
+    </div>
+    <div class="usage-cell">
+      <div class="usage-header dont">Forbidden Usage</div>
+      <ul class="usage-list dont">
+        <li>Never place the sigil on light or white backgrounds. The mark dissolves without darkness behind it.</li>
+        <li>Do not recolor the corona from gold to any other hue. The corona is not a tint — it is the eclipse ring, which is always gold.</li>
+        <li>Do not stretch, skew, or apply drop shadows to the sigil. It already contains its own shadow system.</li>
+        <li>Do not use the sigil as a decorative texture repeat. It is a singular mark, not a pattern element.</li>
+        <li>Do not combine the sigil with other platform logos or brand marks in proximity without explicit layout approval.</li>
+        <li>Never apply the full wordmark in all-lowercase. Cinzel is always title-case or all-caps.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- DELIVERABLES MENU -->
+<section>
+  <div class="section-label">09 — Service Deliverables</div>
+  <h2 class="section-title">What We Build</h2>
+
+  <div class="axioms">
+    <div class="axiom">
+      <div class="axiom-index" style="font-size:0.65rem;color:var(--corona);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;padding-top:0.3rem">01</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Roleplay Landing Pages</div>
+        <div class="axiom-body">Standalone web pages serving as a community's public face — world introduction, tone signal, recruitment pitch, and first application contact. Designed to function as a literacy gate: the quality of the page communicates the expected quality of applicants.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index" style="font-size:0.65rem;color:var(--corona);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;padding-top:0.3rem">02</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Lore Archives & Canon Hubs</div>
+        <div class="axiom-body">Structured web applications for housing world lore — geography, factions, timeline, species/race documentation, magic or power systems. Built for searchability and long-term expansion. These are not wikis. They are living documents with the aesthetic weight of the world they document.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index" style="font-size:0.65rem;color:var(--corona);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;padding-top:0.3rem">03</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Character Application Systems</div>
+        <div class="axiom-body">Structured intake flows for character submissions — fields, lore-locked dropdowns, stat systems, and admin review pipelines. Built to match a server's specific application format. Reduces GM overhead while enforcing quality standards at point of entry.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index" style="font-size:0.65rem;color:var(--corona);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;padding-top:0.3rem">04</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Recruitment Campaign Assets</div>
+        <div class="axiom-body">Platform-specific recruitment packages — banner copy, recruitment post templates, visual headers, and linking strategy for Facebook, Reddit, Amino, and Discord. Designed to move the right writers through and screen out poor fits before they reach the server.</div>
+      </div>
+    </div>
+    <div class="axiom">
+      <div class="axiom-index" style="font-size:0.65rem;color:var(--corona);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;padding-top:0.3rem">05</div>
+      <div class="axiom-content">
+        <div class="axiom-title">Community Web Applications</div>
+        <div class="axiom-body">Full web applications for established communities — character registries, in-character event boards, faction dashboards, XP and progression trackers. Custom-scoped per community. These are infrastructure projects: longer timelines, deeper integration with community operations.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<footer>
+  <div class="footer-brand">Eclipse of Legacies</div>
+  <div class="footer-meta">Brand Guidelines v1.0 · The Architecture · All Rights Reserved</div>
+  <div class="footer-meta" style="font-family:'JetBrains Mono',monospace;font-size:0.5rem;color:var(--muted)">Forge Your Dominion</div>
+</footer>
+
+</body>
+</html>
