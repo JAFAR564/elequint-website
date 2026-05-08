@@ -337,7 +337,7 @@
       position: absolute; inset: -24px;
       border: 1px solid rgba(192,200,216,0.15);
       border-radius: 50%;
-      animation: ring-orbit 22s linear infinite;
+      animation: ring-orbit 14s linear infinite;
     }
     .hero-orbit-ring::before {
       content: '';
@@ -356,7 +356,7 @@
       position: absolute; inset: -48px;
       border: 1px solid rgba(192,200,216,0.07);
       border-radius: 50%;
-      animation: ring-orbit 38s linear infinite reverse;
+      animation: ring-orbit 24s linear infinite reverse;
     }
 
     .hero-eyebrow {
@@ -1492,12 +1492,11 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+      /* Show scroll-revealed content immediately */
       .reveal { opacity: 1 !important; transform: none !important; }
+      /* Disable interactive transforms */
+      .magnetic, .tilt-card { transform: none !important; }
+      /* Keep ambient animations (orbit, breathe, float, marquee, flicker) — they are gentle and non-disorienting */
     }
     /* No-JS fallback: ensure all reveal content is visible if scripts fail */
     .no-js .reveal { opacity: 1; transform: none; }
