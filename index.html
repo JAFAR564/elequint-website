@@ -400,6 +400,8 @@
       animation: fade-up 1s ease-out 0.8s both;
     }
     .hero-descriptor strong { color: var(--crystal); font-weight: 400; }
+    .hero-descriptor-2 { margin-top: -1.5rem; }
+    @media (max-width: 600px) { .hero-descriptor-2 { margin-top: 0; } }
     .hero-ctas {
       display: flex; gap: 1rem; justify-content: center; align-items: center;
       flex-wrap: wrap;
@@ -1493,10 +1495,38 @@
       .back-to-top { bottom: 1rem; right: 1rem; }
     }
     @media (max-width: 600px) {
-      .hero-sigil { width: 150px; height: 150px; }
+      .hero { padding: 6rem 1.25rem 4rem; }
+      .hero-sigil { width: 150px; height: 150px; margin-bottom: 2rem; }
+      .hero-descriptor { line-height: 1.85; }
+      .hero-ctas { gap: 0.75rem; }
+      .btn-primary, .btn-secondary { padding: 0.9rem 1.6rem; font-size: 0.65rem; }
+      .arch-statement { padding: 4rem 1.5rem; }
+      .arch-quote br { display: none; }
+      .stats-inner { padding: 0 1rem 3rem; }
+      .stat-item { padding: 1.8rem 1rem; }
+      .marquee-track { gap: 2rem; font-size: 0.75rem; }
+      .marquee-track span { gap: 2rem; }
       .process-steps { grid-template-columns: 1fr; }
       .faq-q { padding: 1.2rem 1.5rem; }
-      .faq-a-inner { padding: 0 1.5rem 1.5rem; }
+      .faq-q-text { font-size: 0.85rem; }
+      .faq-a-inner { padding: 0 1.5rem 1.5rem; font-size: 0.78rem; }
+      .testimonial-card { padding: 2.2rem 1.5rem 1.8rem; }
+      .testimonial-mark { font-size: 3.2rem; left: 0.8rem; }
+      .pricing-card { padding: 2.2rem 1.5rem; }
+      .commission-section { padding: 5rem 1.5rem; }
+      .footer-inner { padding: 2rem 1.5rem; }
+      .footer-sub { padding: 1rem 1.5rem 2rem; }
+      .identity-cell, .platform-card, .axiom-card { padding: 2rem 1.5rem; }
+      .service-item { padding: 1.5rem 1.5rem; gap: 1.2rem; }
+    }
+    @media (max-width: 420px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .nav-brand { font-size: 0.62rem; letter-spacing: 0.22em; }
+      .nav-logo img { width: 28px; height: 28px; }
+      nav { padding: 0.85rem 1rem; }
+      .hero-title { letter-spacing: 0.04em; }
+      .hero-tagline { letter-spacing: 0.4em; }
+      .pricing-amount { font-size: 2.4rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1567,7 +1597,7 @@
     We are not builders who leave.<br>
     <strong>We are the architecture that stays.</strong>
   </p>
-  <p class="hero-descriptor" style="margin-top: -1.5rem;">
+  <p class="hero-descriptor hero-descriptor-2">
     Landing pages, lore archives, and web applications purpose-built for the text-based roleplay diaspora — communities across Discord, Reddit, Facebook, and Amino.
   </p>
 
