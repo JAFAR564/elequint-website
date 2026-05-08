@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>404 — Beyond Canon · Eclipse of Legacies</title>
+  <meta name="description" content="This page lies beyond canon.">
+  <link rel="icon" type="image/png" href="brand_assets/Logo.png">
+  <meta name="theme-color" content="#06060f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@700;900&family=Raleway:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #06060f;
+      --abyss: #0a0a1a;
+      --crystal: #c0c8d8;
+      --silver: #8a9ab5;
+      --muted: #4a5568;
+      --corona: #f5c97a;
+      --arc: #6b9fd4;
+      --white: #eef1f7;
+      --border: rgba(192,200,216,0.10);
+      --border-bright: rgba(192,200,216,0.28);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--void);
+      color: var(--crystal);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    .bg-glow {
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,201,122,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(74,111,165,0.06) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .content { position: relative; z-index: 1; }
+    .sigil {
+      width: 110px; height: 110px;
+      margin: 0 auto 3rem;
+      animation: breathe 4s ease-in-out infinite;
+    }
+    .sigil img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 22px rgba(245,201,122,0.4)) drop-shadow(0 0 50px rgba(245,201,122,0.15));
+    }
+    @keyframes breathe {
+      0%,100% { opacity: 0.85; }
+      50% { opacity: 1; }
+    }
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      color: var(--corona);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      font-size: clamp(4rem, 14vw, 9rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--white) 0%, var(--crystal) 35%, var(--corona) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.4vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+    p {
+      font-size: 0.85rem;
+      color: var(--silver);
+      max-width: 460px;
+      line-height: 2;
+      margin: 0 auto 2.5rem;
+    }
+    p em { color: var(--corona); font-style: normal; }
+    .cta {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--void);
+      background: var(--corona);
+      padding: 0.85rem 2.2rem;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+      box-shadow: 0 0 24px rgba(245,201,122,0.2);
+      display: inline-block;
+    }
+    .cta:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(245,201,122,0.4);
+    }
+    .quote {
+      margin-top: 4rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      max-width: 500px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+    .quote::before, .quote::after {
+      content: '—';
+      color: var(--corona);
+      margin: 0 0.4rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="content">
+    <div class="sigil">
+      <img src="brand_assets/Logo.png" alt="Eclipse of Legacies">
+    </div>
+    <div class="label">Error · 404</div>
+    <h1>404</h1>
+    <h2>This page lies beyond canon.</h2>
+    <p>
+      The corner of the world you reached for <em>does not exist yet</em>.<br>
+      Either the link is broken — or this story has not been written.
+    </p>
+    <a href="/" class="cta">Return to The Architecture</a>
+    <div class="quote">Every uploaded intelligence eventually becomes indistinguishable from the network it runs on.</div>
+  </div>
+</body>
+</html>

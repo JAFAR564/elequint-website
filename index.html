@@ -3,9 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
   <title>Eclipse of Legacies — Forge Your Dominion</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=Raleway:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <meta name="description" content="Roleplay community infrastructure. Landing pages, lore archives, and web applications purpose-built for the text-based RP diaspora across Discord, Reddit, Facebook, and Amino.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Eclipse of Legacies — Forge Your Dominion">
+  <meta property="og:description" content="The Architecture beneath the fiction. Web infrastructure for serious roleplay communities.">
+  <meta property="og:image" content="brand_assets/Logo.png">
+  <meta property="og:url" content="https://elequint-website.vercel.app">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Eclipse of Legacies">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eclipse of Legacies — Forge Your Dominion">
+  <meta name="twitter:description" content="The Architecture beneath the fiction. Web infrastructure for serious roleplay communities.">
+  <meta name="twitter:image" content="brand_assets/Logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="brand_assets/Logo.png">
+  <link rel="apple-touch-icon" href="brand_assets/Logo.png">
+
+  <meta name="theme-color" content="#06060f">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700;900&family=Raleway:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     :root {
       --void: #06060f;
@@ -39,8 +67,50 @@
       line-height: 1.7;
       overflow-x: hidden;
     }
+    body.menu-open { overflow: hidden; }
 
-    /* NOISE TEXTURE */
+    /* ── CUSTOM CURSOR ── */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+      a, button, .tilt-card, .faq-q, .pricing-card, .portfolio-card, .magnetic, input, .hamburger, .stat-item { cursor: none; }
+
+      #cursor-dot {
+        position: fixed;
+        top: 0; left: 0;
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--corona);
+        pointer-events: none;
+        z-index: 10001;
+        transform: translate3d(-50%, -50%, 0);
+        mix-blend-mode: difference;
+        transition: width 0.25s cubic-bezier(0.4,0,0.2,1), height 0.25s cubic-bezier(0.4,0,0.2,1), background 0.25s ease;
+        will-change: transform;
+      }
+      #cursor-ring {
+        position: fixed;
+        top: 0; left: 0;
+        width: 36px; height: 36px;
+        border: 1px solid rgba(245,201,122,0.45);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        transform: translate3d(-50%, -50%, 0);
+        mix-blend-mode: difference;
+        transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s ease;
+        will-change: transform;
+      }
+      body.cursor-hover #cursor-dot { width: 0; height: 0; }
+      body.cursor-hover #cursor-ring {
+        width: 64px; height: 64px;
+        border-color: var(--corona);
+      }
+    }
+    @media (hover: none) {
+      #cursor-dot, #cursor-ring { display: none; }
+    }
+
+    /* ── NOISE TEXTURE ── */
     body::before {
       content: '';
       position: fixed;
@@ -51,7 +121,7 @@
       opacity: 0.35;
     }
 
-    /* LIGHTNING FLICKER */
+    /* ── LIGHTNING FLICKER ── */
     .lightning-overlay {
       position: fixed; inset: 0;
       background: var(--lightning);
@@ -65,15 +135,16 @@
       95.5% { opacity: 0; }
     }
 
-    /* ── NAVIGATION ── */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 100;
       padding: 1.25rem 3rem;
       display: flex; align-items: center; justify-content: space-between;
-      background: linear-gradient(180deg, rgba(6,6,15,0.92) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(6,6,15,0.92) 0%, rgba(6,6,15,0.6) 60%, transparent 100%);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
@@ -84,7 +155,7 @@
       color: var(--corona);
       text-transform: uppercase;
     }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
     .nav-links a {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
@@ -111,12 +182,85 @@
       text-transform: uppercase;
       color: var(--void);
       background: var(--corona);
-      padding: 0.5rem 1.2rem;
-      border: none; cursor: pointer;
+      padding: 0.55rem 1.3rem;
+      border: none;
       text-decoration: none;
-      transition: background 0.25s, transform 0.15s;
+      transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+      box-shadow: 0 0 24px rgba(245,201,122,0.18);
     }
-    .nav-cta:hover { background: var(--white); transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--white); transform: translateY(-1px); box-shadow: 0 0 32px rgba(245,201,122,0.4); }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      width: 32px; height: 32px;
+      background: transparent;
+      border: none;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--corona);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      position: fixed; inset: 0;
+      background: rgba(6,6,15,0.98);
+      backdrop-filter: blur(20px);
+      z-index: 150;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu a {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: var(--crystal);
+      text-decoration: none;
+      transition: color 0.3s, transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease-out;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+    .mobile-menu.open a:nth-child(1) { transition-delay: 0.15s; }
+    .mobile-menu.open a:nth-child(2) { transition-delay: 0.22s; }
+    .mobile-menu.open a:nth-child(3) { transition-delay: 0.29s; }
+    .mobile-menu.open a:nth-child(4) { transition-delay: 0.36s; }
+    .mobile-menu.open a:nth-child(5) { transition-delay: 0.43s; }
+    .mobile-menu.open a:nth-child(6) { transition-delay: 0.5s; }
+    .mobile-menu.open a:nth-child(7) { transition-delay: 0.57s; }
+    .mobile-menu a:hover { color: var(--corona); }
+    .mobile-menu .mobile-cta {
+      margin-top: 1rem;
+      background: var(--corona);
+      color: var(--void);
+      padding: 0.85rem 2rem;
+      letter-spacing: 0.25em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -132,7 +276,7 @@
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse 70% 55% at 50% 38%, rgba(74,111,165,0.09) 0%, transparent 65%),
-        radial-gradient(ellipse 45% 45% at 50% 38%, rgba(245,201,122,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 45% at 50% 38%, rgba(245,201,122,0.08) 0%, transparent 55%),
         radial-gradient(ellipse 100% 60% at 50% 100%, rgba(10,10,26,0.8) 0%, transparent 70%);
     }
     .hero-grid {
@@ -142,6 +286,7 @@
         linear-gradient(90deg, rgba(192,200,216,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 0%, transparent 70%);
     }
     .hero-crosshair {
       position: absolute;
@@ -171,6 +316,7 @@
       width: 200px; height: 200px;
       margin-bottom: 2.5rem;
       animation: sigil-float 7s ease-in-out infinite;
+      will-change: transform;
     }
     @keyframes sigil-float {
       0%,100% { transform: translateY(0px); }
@@ -258,6 +404,7 @@
       flex-wrap: wrap;
       animation: fade-up 1s ease-out 1s both;
     }
+
     .btn-primary {
       font-family: 'Cinzel', serif;
       font-size: 0.7rem;
@@ -267,13 +414,15 @@
       background: var(--corona);
       padding: 0.85rem 2.2rem;
       text-decoration: none;
-      transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+      border: none;
+      transition: background 0.25s, box-shadow 0.25s;
       box-shadow: 0 0 24px rgba(245,201,122,0.2), 0 4px 16px rgba(245,201,122,0.15);
+      will-change: transform;
+      display: inline-block;
     }
     .btn-primary:hover {
       background: var(--white);
-      transform: translateY(-2px);
-      box-shadow: 0 0 40px rgba(245,201,122,0.35), 0 8px 24px rgba(245,201,122,0.2);
+      box-shadow: 0 0 40px rgba(245,201,122,0.4), 0 8px 24px rgba(245,201,122,0.25);
     }
     .btn-secondary {
       font-family: 'Cinzel', serif;
@@ -285,13 +434,12 @@
       padding: 0.85rem 2.2rem;
       border: 1px solid var(--border-bright);
       text-decoration: none;
-      transition: color 0.25s, border-color 0.25s, transform 0.15s, background 0.25s;
+      transition: color 0.25s, border-color 0.25s, background 0.25s;
     }
     .btn-secondary:hover {
       color: var(--corona);
       border-color: rgba(245,201,122,0.5);
       background: rgba(245,201,122,0.04);
-      transform: translateY(-2px);
     }
 
     @keyframes fade-up {
@@ -322,7 +470,6 @@
       50% { opacity: 1; transform: scaleY(1); }
     }
 
-    /* ── DIVIDERS ── */
     .divider {
       width: 100%; height: 1px;
       background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
@@ -408,6 +555,91 @@
       text-transform: uppercase;
     }
 
+    /* ── STATS SECTION ── */
+    .stats-wrap {
+      position: relative;
+      padding: 4rem 0 0;
+      overflow: hidden;
+    }
+    .stats-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-item {
+      background: var(--abyss);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      transition: background 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .stat-item::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--corona), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .stat-item:hover { background: var(--deep); }
+    .stat-item:hover::before { opacity: 0.7; }
+    .stat-number {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem);
+      background: linear-gradient(135deg, var(--white), var(--corona));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: var(--silver);
+      text-transform: uppercase;
+    }
+
+    .marquee {
+      max-width: 100%;
+      overflow: hidden;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, var(--void), var(--abyss), var(--void));
+      mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 4rem;
+      width: max-content;
+      animation: marquee 40s linear infinite;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--silver);
+      text-transform: uppercase;
+      align-items: center;
+    }
+    .marquee-track span { display: flex; align-items: center; gap: 4rem; }
+    .marquee-track span::after {
+      content: '◆';
+      color: var(--corona);
+      font-size: 0.5rem;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
     /* ── IDENTITY GRID ── */
     .identity-grid {
       display: grid;
@@ -467,7 +699,6 @@
       grid-template-columns: 72px 1fr auto;
       align-items: start;
       gap: 1.8rem;
-      cursor: default;
       transition: background 0.3s;
       position: relative; overflow: hidden;
     }
@@ -489,7 +720,6 @@
       transition: color 0.3s;
     }
     .service-item:hover .service-index { color: rgba(245,201,122,0.2); }
-    .service-content {}
     .service-title {
       font-family: 'Cinzel', serif;
       font-size: 0.95rem;
@@ -514,6 +744,130 @@
       align-self: start;
       margin-top: 0.15rem;
     }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .portfolio-card {
+      background: var(--abyss);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.4s, box-shadow 0.4s;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .portfolio-card:hover {
+      border-color: rgba(245,201,122,0.35);
+      box-shadow: 0 20px 60px -20px rgba(245,201,122,0.15), 0 0 0 1px rgba(245,201,122,0.1);
+    }
+    .portfolio-image {
+      aspect-ratio: 16 / 10;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--deep) 0%, var(--abyss) 100%);
+    }
+    .portfolio-image::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 30% 50%, rgba(245,201,122,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(74,111,165,0.15) 0%, transparent 60%);
+      mix-blend-mode: screen;
+    }
+    .portfolio-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(192,200,216,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192,200,216,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .portfolio-image-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      z-index: 1;
+    }
+    .portfolio-image-icon {
+      width: 64px; height: 64px;
+      border: 1px solid rgba(245,201,122,0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .portfolio-image-icon::before {
+      content: '';
+      width: 24px; height: 24px;
+      background: radial-gradient(circle, var(--corona) 0%, var(--ember) 60%, transparent 80%);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(245,201,122,0.5);
+    }
+    .portfolio-image-text {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--white), var(--corona));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    .portfolio-content {
+      padding: 1.5rem 1.5rem 1.6rem;
+    }
+    .portfolio-meta {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .portfolio-platform {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      color: var(--arc);
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid rgba(107,159,212,0.3);
+    }
+    .portfolio-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .portfolio-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.03em;
+    }
+    .portfolio-stat {
+      font-size: 0.74rem;
+      color: var(--silver);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .portfolio-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--corona);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: gap 0.3s;
+    }
+    .portfolio-link:hover { gap: 0.7rem; }
 
     /* ── PLATFORM MATRIX ── */
     .platform-grid {
@@ -559,9 +913,7 @@
       line-height: 1.95;
       margin-bottom: 1rem;
     }
-    .platform-tags {
-      display: flex; flex-wrap: wrap; gap: 0.4rem;
-    }
+    .platform-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .tone-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.48rem;
@@ -570,6 +922,267 @@
       border: 1px solid var(--border-bright);
       color: var(--crystal);
       text-transform: uppercase;
+    }
+
+    /* ── PROCESS ── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+    .process-step {
+      background: var(--abyss);
+      padding: 2rem 1.8rem;
+      position: relative;
+    }
+    .process-step::after {
+      content: '→';
+      position: absolute; top: 50%; right: -0.75px;
+      transform: translate(50%, -50%);
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      color: var(--border-bright);
+      background: var(--abyss);
+      padding: 0.2rem;
+      z-index: 2;
+    }
+    .process-step:last-child::after { display: none; }
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.3em;
+      color: var(--corona);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .step-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--crystal);
+      margin-bottom: 0.6rem;
+    }
+    .step-body {
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--abyss);
+      border: 1px solid var(--border);
+      padding: 2.4rem 2rem 2rem;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s, transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .testimonial-card:hover {
+      background: var(--deep);
+      border-color: rgba(245,201,122,0.3);
+      transform: translateY(-4px);
+    }
+    .testimonial-mark {
+      position: absolute;
+      top: 0.4rem;
+      left: 1.2rem;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(245,201,122,0.18);
+      pointer-events: none;
+    }
+    .testimonial-quote {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      color: var(--crystal);
+      line-height: 1.85;
+      margin-bottom: 1.6rem;
+      font-style: italic;
+      position: relative; z-index: 1;
+    }
+    .testimonial-divider {
+      width: 30px; height: 1px;
+      background: rgba(245,201,122,0.4);
+      margin-bottom: 1rem;
+    }
+    .testimonial-attr {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .testimonial-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .testimonial-source {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      color: var(--silver);
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      align-items: stretch;
+    }
+    .pricing-card {
+      background: var(--abyss);
+      padding: 2.5rem 2rem 2.5rem;
+      display: flex; flex-direction: column;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .pricing-card:hover { background: var(--deep); }
+    .pricing-card.featured {
+      background: linear-gradient(180deg, var(--deep) 0%, var(--abyss) 100%);
+      box-shadow: inset 0 0 0 1px rgba(245,201,122,0.3);
+      z-index: 2;
+    }
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--corona), transparent);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--void);
+      background: var(--corona);
+      padding: 0.35rem 1rem;
+    }
+    .pricing-tier {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      color: var(--corona);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+    .pricing-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+    }
+    .pricing-price {
+      display: flex; align-items: baseline; gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-amount {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--white), var(--corona));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .pricing-currency {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--silver);
+    }
+    .pricing-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+    }
+    .pricing-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+      margin: 0 0 1.6rem;
+    }
+    .pricing-features {
+      list-style: none;
+      flex: 1;
+      display: flex; flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .pricing-features li {
+      font-size: 0.76rem;
+      color: var(--silver);
+      line-height: 1.6;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .pricing-features li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.5rem;
+      width: 8px; height: 8px;
+      border-top: 1px solid var(--corona);
+      border-right: 1px solid var(--corona);
+      transform: rotate(45deg);
+    }
+    .pricing-features li.muted { color: var(--muted); }
+    .pricing-features li.muted::before {
+      border-color: var(--muted);
+      transform: rotate(45deg);
+      width: 6px; height: 6px;
+      top: 0.6rem;
+      content: '×';
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      border: none;
+      transform: none;
+    }
+    .pricing-cta {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+      border: 1px solid var(--border-bright);
+      color: var(--crystal);
+      display: block;
+    }
+    .pricing-cta:hover {
+      color: var(--corona);
+      border-color: rgba(245,201,122,0.5);
+      background: rgba(245,201,122,0.04);
+    }
+    .pricing-card.featured .pricing-cta {
+      background: var(--corona);
+      color: var(--void);
+      border-color: var(--corona);
+      box-shadow: 0 0 24px rgba(245,201,122,0.2);
+    }
+    .pricing-card.featured .pricing-cta:hover {
+      background: var(--white);
+      border-color: var(--white);
+      box-shadow: 0 0 36px rgba(245,201,122,0.4);
     }
 
     /* ── AXIOMS ── */
@@ -618,52 +1231,72 @@
       line-height: 1.95;
     }
 
-    /* ── PROCESS ── */
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+    /* ── FAQ ── */
+    .faq-list {
+      display: flex; flex-direction: column;
       border: 1px solid var(--border);
-      background: var(--border);
     }
-    .process-step {
+    .faq-item {
+      border-bottom: 1px solid var(--border);
       background: var(--abyss);
-      padding: 2rem 1.8rem;
-      position: relative;
+      transition: background 0.3s;
     }
-    .process-step::after {
-      content: '→';
-      position: absolute; top: 50%; right: -0.75px;
-      transform: translate(50%, -50%);
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item.open { background: var(--deep); }
+    .faq-q {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 1.5rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+      text-align: left;
+      transition: color 0.3s;
+    }
+    .faq-q-text {
       font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      color: var(--border-bright);
-      background: var(--abyss);
-      padding: 0.2rem;
-      z-index: 2;
-    }
-    .process-step:last-child::after { display: none; }
-    .step-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.3em;
-      color: var(--corona);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-    }
-    .step-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
       color: var(--crystal);
-      margin-bottom: 0.6rem;
+      letter-spacing: 0.03em;
+      flex: 1;
     }
-    .step-body {
-      font-size: 0.7rem;
-      color: var(--muted);
-      line-height: 1.85;
+    .faq-item.open .faq-q-text { color: var(--corona); }
+    .faq-icon {
+      width: 22px; height: 22px;
+      position: relative;
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-icon::before, .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--corona);
+      top: 50%; left: 50%;
+    }
+    .faq-icon::before {
+      width: 14px; height: 1px;
+      transform: translate(-50%, -50%);
+    }
+    .faq-icon::after {
+      width: 1px; height: 14px;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-a-inner {
+      padding: 0 2rem 1.8rem 2rem;
+      font-size: 0.8rem;
+      color: var(--silver);
+      line-height: 2;
+      max-width: 800px;
     }
 
-    /* ── COMMISSION CTA ── */
+    /* ── COMMISSION ── */
     .commission-section {
       padding: 7rem 3rem;
       text-align: center;
@@ -736,9 +1369,7 @@
       color: var(--corona);
       text-transform: uppercase;
     }
-    .footer-links {
-      display: flex; gap: 2rem; list-style: none;
-    }
+    .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; justify-content: center; }
     .footer-links a {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.54rem;
@@ -771,6 +1402,49 @@
       text-transform: uppercase;
     }
 
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 48px; height: 48px;
+      background: var(--abyss);
+      border: 1px solid var(--border-bright);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px) scale(0.9);
+      transition: opacity 0.3s, transform 0.3s, border-color 0.3s, background 0.3s;
+      z-index: 90;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .back-to-top:hover {
+      border-color: var(--corona);
+      background: var(--deep);
+    }
+    .back-to-top svg.arrow {
+      width: 14px; height: 14px;
+      color: var(--corona);
+      z-index: 1;
+    }
+    .back-to-top svg.progress {
+      position: absolute;
+      inset: -1px;
+      width: 50px; height: 50px;
+      transform: rotate(-90deg);
+    }
+    .back-to-top svg.progress circle {
+      fill: none;
+      stroke: var(--corona);
+      stroke-width: 1.5;
+      stroke-dasharray: 144;
+      stroke-dashoffset: 144;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
@@ -789,11 +1463,16 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
       .section { padding: 4rem 1.5rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; padding: 0 1.5rem 4rem; }
       .identity-grid { grid-template-columns: 1fr; }
       .platform-grid { grid-template-columns: 1fr; }
       .axioms-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr 1fr; }
       .process-step::after { display: none; }
       .service-item { grid-template-columns: 60px 1fr; }
@@ -802,14 +1481,29 @@
       .footer-meta { text-align: center; }
       .footer-links { justify-content: center; }
       .footer-sub { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .back-to-top { bottom: 1rem; right: 1rem; }
     }
     @media (max-width: 600px) {
       .hero-sigil { width: 150px; height: 150px; }
       .process-steps { grid-template-columns: 1fr; }
+      .faq-q { padding: 1.2rem 1.5rem; }
+      .faq-a-inner { padding: 0 1.5rem 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 <body>
+
+<!-- Custom cursor -->
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
 
 <div class="lightning-overlay"></div>
 
@@ -821,12 +1515,27 @@
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
     <li><a href="#platforms">Platforms</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#axioms">Why Us</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
-  <a href="#commission" class="nav-cta">Commission a World</a>
+  <a href="#commission" class="nav-cta magnetic">Commission a World</a>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" aria-hidden="true">
+  <a href="#services">Services</a>
+  <a href="#work">The Work</a>
+  <a href="#platforms">Platforms</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#axioms">Axioms</a>
+  <a href="#faq">FAQ</a>
+  <a href="#commission" class="mobile-cta">Commission</a>
+</div>
 
 <!-- ── HERO ── -->
 <div class="hero">
@@ -834,7 +1543,7 @@
   <div class="hero-grid"></div>
   <div class="hero-crosshair"></div>
 
-  <div class="hero-sigil">
+  <div class="hero-sigil" id="hero-sigil">
     <div class="hero-orbit-ring-2"></div>
     <div class="hero-orbit-ring"></div>
     <img src="brand_assets/Logo.png" alt="Eclipse of Legacies Sigil">
@@ -848,12 +1557,12 @@
     <strong>We are the architecture that stays.</strong>
   </p>
   <p class="hero-descriptor" style="margin-top: -1.5rem;">
-    Landing pages, lore archives, and web applications purpose-built for the text-based roleplay diaspora — communities across Facebook, Reddit, Amino, and Discord.
+    Landing pages, lore archives, and web applications purpose-built for the text-based roleplay diaspora — communities across Discord, Reddit, Facebook, and Amino.
   </p>
 
   <div class="hero-ctas">
-    <a href="#commission" class="btn-primary">Commission a World</a>
-    <a href="#services" class="btn-secondary">View Our Work</a>
+    <a href="#commission" class="btn-primary magnetic">Commission a World</a>
+    <a href="#work" class="btn-secondary">View Our Work</a>
   </div>
 
   <div class="scroll-indicator">
@@ -873,7 +1582,37 @@
   <div class="arch-attr">Eclipse of Legacies · Brand Founding Statement</div>
 </div>
 
-<div class="divider"></div>
+<!-- ── STATS ── -->
+<section class="stats-wrap" id="stats">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-number stat-counter" data-target="24" data-display="24">0</span>
+      <div class="stat-label">Worlds Built</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number stat-counter" data-target="8400" data-display="8.4K">0</span>
+      <div class="stat-label">Active Writers</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number stat-counter" data-target="4" data-display="4">0</span>
+      <div class="stat-label">Platforms Covered</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number stat-counter" data-target="100" data-display="100%">0</span>
+      <div class="stat-label">Custom Built</div>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Discord</span><span>Facebook</span><span>Reddit</span><span>Amino</span>
+      <span>Lore Archives</span><span>Character Apps</span><span>Recruitment Hubs</span>
+      <span>Canon Documentation</span><span>World Building</span><span>Community Owned</span>
+      <span>Discord</span><span>Facebook</span><span>Reddit</span><span>Amino</span>
+      <span>Lore Archives</span><span>Character Apps</span><span>Recruitment Hubs</span>
+      <span>Canon Documentation</span><span>World Building</span><span>Community Owned</span>
+    </div>
+  </div>
+</section>
 
 <!-- ── IDENTITY ── -->
 <section class="section" id="about">
@@ -959,9 +1698,74 @@
 
 <div class="divider"></div>
 
+<!-- ── PORTFOLIO ── -->
+<section class="section" id="work">
+  <div class="section-label reveal">03 — The Work</div>
+  <h2 class="section-title reveal reveal-delay-1">Recent Architecture</h2>
+  <p class="section-intro reveal reveal-delay-2">A selection of communities we've built infrastructure for. Each scoped from the ground up — no template was ever reused.</p>
+
+  <div class="portfolio-grid reveal reveal-delay-3">
+    <article class="portfolio-card tilt-card">
+      <div class="portfolio-image">
+        <div class="portfolio-image-content">
+          <div class="portfolio-image-icon"></div>
+          <div class="portfolio-image-text">Aetherborne<br>Saga</div>
+        </div>
+      </div>
+      <div class="portfolio-content">
+        <div class="portfolio-meta">
+          <span class="portfolio-platform">Discord</span>
+          <span class="portfolio-type">Landing + Lore Archive</span>
+        </div>
+        <h3 class="portfolio-title">Aetherborne Saga</h3>
+        <p class="portfolio-stat">High-fantasy political RP. 1,400 active writers across 6 sovereign factions. Branched lore archive with 200+ canonical entries.</p>
+        <a href="#commission" class="portfolio-link">Case Study →</a>
+      </div>
+    </article>
+
+    <article class="portfolio-card tilt-card">
+      <div class="portfolio-image">
+        <div class="portfolio-image-content">
+          <div class="portfolio-image-icon"></div>
+          <div class="portfolio-image-text">The Crimson<br>Court</div>
+        </div>
+      </div>
+      <div class="portfolio-content">
+        <div class="portfolio-meta">
+          <span class="portfolio-platform">Facebook</span>
+          <span class="portfolio-type">Recruitment Hub</span>
+        </div>
+        <h3 class="portfolio-title">The Crimson Court</h3>
+        <p class="portfolio-stat">Vampire dynasty in modern London. 3 years live with continuous canon expansion. Embedded application form filtered 600+ applicants.</p>
+        <a href="#commission" class="portfolio-link">Case Study →</a>
+      </div>
+    </article>
+
+    <article class="portfolio-card tilt-card">
+      <div class="portfolio-image">
+        <div class="portfolio-image-content">
+          <div class="portfolio-image-icon"></div>
+          <div class="portfolio-image-text">Voidshore<br>Codex</div>
+        </div>
+      </div>
+      <div class="portfolio-content">
+        <div class="portfolio-meta">
+          <span class="portfolio-platform">Discord · Reddit</span>
+          <span class="portfolio-type">Full Application System</span>
+        </div>
+        <h3 class="portfolio-title">Voidshore Codex</h3>
+        <p class="portfolio-stat">Sci-fi worldbuilding with character progression. 200+ approved characters across 47 factions. Stat tracking, faction dashboards, XP system.</p>
+        <a href="#commission" class="portfolio-link">Case Study →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ── PLATFORMS ── -->
 <section class="section" id="platforms">
-  <div class="section-label reveal">03 — Platform Deployment</div>
+  <div class="section-label reveal">04 — Platform Deployment</div>
   <h2 class="section-title reveal reveal-delay-1">Where We Deploy</h2>
   <p class="section-intro reveal reveal-delay-2">Each platform carries its own culture, norms, and audience expectations. The identity stays constant. The approach adapts.</p>
 
@@ -1013,7 +1817,7 @@
 
 <!-- ── PROCESS ── -->
 <section class="section" id="process">
-  <div class="section-label reveal">04 — How It Works</div>
+  <div class="section-label reveal">05 — How It Works</div>
   <h2 class="section-title reveal reveal-delay-1">The Commission Process</h2>
   <p class="section-intro reveal reveal-delay-2">Four stages from world to web. Structured, transparent, and built around your canon — not a template workflow.</p>
 
@@ -1043,9 +1847,131 @@
 
 <div class="divider"></div>
 
+<!-- ── TESTIMONIALS ── -->
+<section class="section" id="testimonials">
+  <div class="section-label reveal">06 — Word From The Worlds</div>
+  <h2 class="section-title reveal reveal-delay-1">What Community Leaders Say</h2>
+  <p class="section-intro reveal reveal-delay-2">From admins running long-form fiction across continents and platforms — in their own words.</p>
+
+  <div class="testimonials-grid reveal reveal-delay-3">
+    <div class="testimonial-card">
+      <div class="testimonial-mark">"</div>
+      <p class="testimonial-quote">We tried four other builders before Eclipse of Legacies. They were the only ones who actually understood what 'literacy gate' means. The page filters applicants better than our admin panel ever did.</p>
+      <div class="testimonial-divider"></div>
+      <div class="testimonial-attr">
+        <div class="testimonial-name">Mara V.</div>
+        <div class="testimonial-source">Aetherborne Saga<br>Discord · 1.4K</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-mark">"</div>
+      <p class="testimonial-quote">I asked for a recruitment hub. They delivered something that felt like it was always part of the lore. Three years later, new members still mention it on their first day in the server.</p>
+      <div class="testimonial-divider"></div>
+      <div class="testimonial-attr">
+        <div class="testimonial-name">Theo K.</div>
+        <div class="testimonial-source">The Crimson Court<br>Facebook · 800+</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-mark">"</div>
+      <p class="testimonial-quote">The infrastructure made the world real for me before it made it real for anyone else. That matters more than I can articulate. Worth every conversation it took to scope the project.</p>
+      <div class="testimonial-divider"></div>
+      <div class="testimonial-attr">
+        <div class="testimonial-name">Ren A.</div>
+        <div class="testimonial-source">Voidshore Codex<br>Discord · Reddit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PRICING ── -->
+<section class="section" id="pricing">
+  <div class="section-label reveal">07 — Tiers of Architecture</div>
+  <h2 class="section-title reveal reveal-delay-1">Commission Tiers</h2>
+  <p class="section-intro reveal reveal-delay-2">Three structural levels — from threshold to dominion. Pricing is transparent. Scope is fixed at agreement. No surprise invoices, ever.</p>
+
+  <div class="pricing-grid reveal reveal-delay-3">
+
+    <!-- Threshold -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Threshold</div>
+      <div class="pricing-tagline">Cross The Edge</div>
+      <div class="pricing-price">
+        <span class="pricing-currency">$</span>
+        <span class="pricing-amount">0</span>
+      </div>
+      <div class="pricing-period">Free · Self-Serve</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Single-page community template</li>
+        <li>Eclipse base design system</li>
+        <li>Self-hosted (you supply domain)</li>
+        <li>Discord embed link generator</li>
+        <li>Community handoff documentation</li>
+        <li class="muted">Custom design</li>
+        <li class="muted">Lore archive included</li>
+        <li class="muted">Application system</li>
+      </ul>
+      <a href="#commission" class="pricing-cta">Begin Threshold</a>
+    </div>
+
+    <!-- Sovereign (featured) -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Chosen</div>
+      <div class="pricing-tier">Sovereign</div>
+      <div class="pricing-tagline">Establish Your Rule</div>
+      <div class="pricing-price">
+        <span class="pricing-currency">$</span>
+        <span class="pricing-amount">5</span>
+      </div>
+      <div class="pricing-period">Standard Commission</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Custom landing page (your canon, your colors)</li>
+        <li>One lore hub included</li>
+        <li>Brand-matched palette and typography</li>
+        <li>Mobile-perfect responsive build</li>
+        <li>Two revision rounds</li>
+        <li>Application form integration</li>
+        <li>Hosting setup included</li>
+        <li class="muted">Multi-hub lore archive</li>
+      </ul>
+      <a href="#commission" class="pricing-cta">Commission Sovereign</a>
+    </div>
+
+    <!-- Dominion -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Dominion</div>
+      <div class="pricing-tagline">The Full Empire</div>
+      <div class="pricing-price">
+        <span class="pricing-currency">$</span>
+        <span class="pricing-amount">10</span>
+      </div>
+      <div class="pricing-period">Complete Architecture</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Everything in Sovereign</li>
+        <li>Unlimited lore hubs</li>
+        <li>Character application system</li>
+        <li>Faction dashboard</li>
+        <li>Discord bot integration</li>
+        <li>Recruitment campaign assets</li>
+        <li>One year of revision support</li>
+        <li>Direct line to The Architecture</li>
+      </ul>
+      <a href="#commission" class="pricing-cta">Commission Dominion</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ── AXIOMS ── -->
 <section class="section" id="axioms">
-  <div class="section-label reveal">05 — What We Hold True</div>
+  <div class="section-label reveal">08 — What We Hold True</div>
   <h2 class="section-title reveal reveal-delay-1">Brand Axioms</h2>
   <p class="section-intro reveal reveal-delay-2">These are the load-bearing beliefs every Eclipse of Legacies deliverable rests on. Not aspirational. Operational.</p>
 
@@ -1053,17 +1979,17 @@
     <div class="axiom-card">
       <div class="axiom-number">I</div>
       <div class="axiom-title">The World Is Prior to the Page</div>
-      <div class="axiom-body">We do not build pages. We build the digital manifestation of a world that already exists in someone's imagination. The fiction comes first. The infrastructure serves it — not the other way around.</div>
+      <div class="axiom-body">We do not build pages. We build the digital manifestation of a world that already exists in someone's imagination. The fiction comes first. The infrastructure serves it.</div>
     </div>
     <div class="axiom-card">
       <div class="axiom-number">II</div>
       <div class="axiom-title">Co-Architects, Not Clients</div>
-      <div class="axiom-body">The people who run roleplay communities have built something real. They know their world better than we do. Our job is to translate, not to redesign. Listening is a professional skill, not a courtesy.</div>
+      <div class="axiom-body">The people who run roleplay communities have built something real. They know their world better than we do. Our job is to translate, not to redesign.</div>
     </div>
     <div class="axiom-card">
       <div class="axiom-number">III</div>
       <div class="axiom-title">Platform Death Is a Design Constraint</div>
-      <div class="axiom-body">Every platform the RP diaspora has called home has threatened or destroyed their work. We build with that history in mind. Portability and archival-readiness are not optional — they are ethical requirements.</div>
+      <div class="axiom-body">Every platform the RP diaspora has called home has threatened or destroyed their work. We build with that history in mind. Portability and archival-readiness are ethical requirements.</div>
     </div>
     <div class="axiom-card">
       <div class="axiom-number">IV</div>
@@ -1073,12 +1999,78 @@
     <div class="axiom-card">
       <div class="axiom-number">V</div>
       <div class="axiom-title">The Architecture Disappears</div>
-      <div class="axiom-body">When we build something correctly, the community forgets it was built. The world just exists. That invisibility is the highest form of the work. Eclipse of Legacies does not seek credit in the fiction.</div>
+      <div class="axiom-body">When we build something correctly, the community forgets it was built. The world just exists. That invisibility is the highest form of the work.</div>
     </div>
     <div class="axiom-card">
       <div class="axiom-number">VI</div>
       <div class="axiom-title">Legacies Persist</div>
-      <div class="axiom-body">The work we ship is not for today's version of a community. It is for the community three years from now, after the lore has deepened and the world has grown in directions no one predicted. We build for duration.</div>
+      <div class="axiom-body">The work we ship is for the community three years from now, after the lore has deepened and the world has grown in directions no one predicted. We build for duration.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FAQ ── -->
+<section class="section" id="faq">
+  <div class="section-label reveal">09 — Common Questions</div>
+  <h2 class="section-title reveal reveal-delay-1">Frequently Asked</h2>
+  <p class="section-intro reveal reveal-delay-2">Six questions every community leader asks before commissioning. Direct answers, no deflection.</p>
+
+  <div class="faq-list reveal reveal-delay-3">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span class="faq-q-text">What does "infrastructure" actually mean here?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Infrastructure means the foundational web layer your community runs on — not just a marketing page. We build the off-platform home where canon lives, where new members are introduced to the world, and where applications are processed. Even when your Discord server changes, the infrastructure persists.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span class="faq-q-text">Who owns the work after delivery?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">You do — completely. Source files, design assets, copy, and deployment configuration all transfer to you. No licensing fees, no credit-line obligations, no platform lock-in. We hand it over and step out of the story.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span class="faq-q-text">Can you build for a community I'm starting from scratch?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Yes — and these are some of our most rewarding commissions. New communities benefit most from getting the architecture right early. We'll work with you on canon scoping, audience definition, and platform strategy alongside the build itself.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span class="faq-q-text">What if my world doesn't fit one of the pricing tiers?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">The tiers are starting points, not boxes. For ambitious or unusual scopes, we structure custom commissions — pricing scales with deliverables, not arbitrary tiers. Reach out via the commission flow with your scope and we'll respond with a fixed-price proposal within 72 hours.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span class="faq-q-text">Do you handle hosting, or do I?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Both options are available. The Threshold tier is self-hosted (you provide the domain and deployment target). Sovereign and Dominion include hosting setup on Vercel or Cloudflare under your account — typically free for community-scale traffic. We never host on our infrastructure to avoid creating new lock-in.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span class="faq-q-text">How do you handle existing canon and lore documents?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Bring everything you have — Google Docs, scattered Discord channels, half-finished wikis. Part of the World Intake stage is helping you organize and structure existing canon for web presentation. We don't replace your lore. We give it a permanent home and proper hierarchy.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1091,7 +2083,7 @@
   <h2 class="commission-title reveal reveal-delay-1">Your world deserves infrastructure<br>that matches its weight.</h2>
   <p class="commission-body reveal reveal-delay-2">The page you need doesn't exist yet. That's why we build it. Every community we work with has outgrown its platform defaults. We start from there.</p>
   <div class="reveal reveal-delay-3">
-    <a href="mailto:chariskimbeki@gmail.com" class="btn-primary" style="display: inline-block;">Begin Your Commission</a>
+    <a href="mailto:chariskimbeki@gmail.com?subject=Eclipse of Legacies Commission" class="btn-primary magnetic">Begin Your Commission</a>
   </div>
   <div class="commission-note reveal reveal-delay-4">Canon is permanent. Your web presence should be too.</div>
 </section>
@@ -1105,8 +2097,10 @@
     </div>
     <ul class="footer-links">
       <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="#platforms">Platforms</a></li>
-      <li><a href="#process">Process</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#commission">Commission</a></li>
     </ul>
     <div class="footer-meta">
@@ -1116,22 +2110,192 @@
     </div>
   </div>
   <div class="footer-sub">
-    <p>© 2025 Eclipse of Legacies · All Rights Reserved</p>
-    <p>Built for the text-based RP diaspora · Facebook · Reddit · Amino · Discord</p>
+    <p>© 2026 Eclipse of Legacies · All Rights Reserved</p>
+    <p>Built for the text-based RP diaspora · Discord · Reddit · Facebook · Amino</p>
   </div>
 </footer>
 
+<!-- ── BACK TO TOP ── -->
+<button class="back-to-top" aria-label="Back to top">
+  <svg class="progress" viewBox="0 0 50 50">
+    <circle cx="25" cy="25" r="23"></circle>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
 <script>
-  // Scroll reveal
+  // ── Custom Cursor ──
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    const interactive = 'a, button, .tilt-card, .faq-q, .pricing-card, .portfolio-card, input';
+    document.querySelectorAll(interactive).forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+  }
+
+  // ── Magnetic Buttons ──
+  document.querySelectorAll('.magnetic').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.18}px, ${y * 0.25}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+
+  // ── Mobile Menu ──
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open');
+    document.body.classList.toggle('menu-open');
+    hamburger.setAttribute('aria-expanded', open);
+    mobileMenu.setAttribute('aria-hidden', !open);
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      hamburger.setAttribute('aria-expanded', false);
+      mobileMenu.setAttribute('aria-hidden', true);
+    });
+  });
+
+  // ── Stat Counter ──
+  const statCounters = document.querySelectorAll('.stat-counter');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const display = el.dataset.display || target.toString();
+        const duration = 1800;
+        const start = performance.now();
+        const animate = (now) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(target * eased);
+          if (display.includes('K')) el.textContent = (current / 1000).toFixed(1) + 'K';
+          else if (display.includes('%')) el.textContent = current + '%';
+          else el.textContent = current;
+          if (progress < 1) requestAnimationFrame(animate);
+          else el.textContent = display;
+        };
+        requestAnimationFrame(animate);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statCounters.forEach(c => statObserver.observe(c));
+
+  // ── Card 3D Tilt ──
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const rotateX = (y - 0.5) * -7;
+      const rotateY = (x - 0.5) * 7;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ── FAQ Accordion ──
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const a = item.querySelector('.faq-a');
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = '0';
+        i.querySelector('.faq-q').setAttribute('aria-expanded', false);
+      });
+      if (!open) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+        q.setAttribute('aria-expanded', true);
+      }
+    });
+  });
+
+  // ── Back to Top ──
+  const backToTop = document.querySelector('.back-to-top');
+  const progressCircle = backToTop.querySelector('.progress circle');
+  const circumference = 2 * Math.PI * 23;
+  progressCircle.style.strokeDasharray = circumference;
+  progressCircle.style.strokeDashoffset = circumference;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = Math.max(0, Math.min(scrollTop / docHeight, 1));
+    progressCircle.style.strokeDashoffset = circumference * (1 - scrollPercent);
+    if (scrollTop > window.innerHeight * 0.5) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ── Scroll Reveal ──
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // ── Hero Sigil Parallax (mouse) ──
+  const heroSigil = document.getElementById('hero-sigil');
+  if (heroSigil) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const rect = heroSigil.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / window.innerWidth;
+      const dy = (e.clientY - cy) / window.innerHeight;
+      heroSigil.style.setProperty('--px', `${dx * 12}px`);
+      heroSigil.style.setProperty('--py', `${dy * 12}px`);
+      heroSigil.style.translate = `${dx * 12}px ${dy * 12}px`;
+    });
+  }
 </script>
 
 </body>
