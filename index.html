@@ -888,13 +888,13 @@
     .platform-card:hover { background: var(--deep); }
     .platform-card::after {
       content: '';
-      position: absolute; bottom: 0; right: 0;
-      width: 90px; height: 90px;
-      background: radial-gradient(circle, var(--glow-gold) 0%, transparent 70%);
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--corona), transparent);
       opacity: 0;
-      transition: opacity 0.4s;
+      transition: opacity 0.35s;
     }
-    .platform-card:hover::after { opacity: 1; }
+    .platform-card:hover::after { opacity: 0.7; }
     .platform-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.52rem;
