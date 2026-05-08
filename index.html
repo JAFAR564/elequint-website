@@ -1409,13 +1409,16 @@
       position: fixed;
       bottom: 2rem; right: 2rem;
       width: 48px; height: 48px;
-      background: var(--abyss);
-      border: 1px solid var(--border-bright);
+      background: rgba(10,10,26,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(245,201,122,0.15);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       opacity: 0;
       pointer-events: none;
       transform: translateY(20px) scale(0.9);
-      transition: opacity 0.3s, transform 0.3s, border-color 0.3s, background 0.3s;
+      transition: opacity 0.3s, transform 0.3s, border-color 0.3s, background 0.3s, box-shadow 0.3s;
       z-index: 90;
     }
     .back-to-top.visible {
@@ -1424,27 +1427,30 @@
       transform: translateY(0) scale(1);
     }
     .back-to-top:hover {
-      border-color: var(--corona);
-      background: var(--deep);
+      border-color: rgba(245,201,122,0.45);
+      background: rgba(15,15,36,0.85);
+      box-shadow: 0 0 24px rgba(245,201,122,0.2);
     }
     .back-to-top svg.arrow {
       width: 14px; height: 14px;
       color: var(--corona);
       z-index: 1;
+      position: relative;
     }
     .back-to-top svg.progress {
       position: absolute;
-      inset: -1px;
-      width: 50px; height: 50px;
+      inset: -3px;
+      width: calc(100% + 6px); height: calc(100% + 6px);
       transform: rotate(-90deg);
+      pointer-events: none;
     }
     .back-to-top svg.progress circle {
       fill: none;
       stroke: var(--corona);
       stroke-width: 1.5;
-      stroke-dasharray: 144;
-      stroke-dashoffset: 144;
+      stroke-linecap: round;
       transition: stroke-dashoffset 0.1s linear;
+      filter: drop-shadow(0 0 4px rgba(245,201,122,0.4));
     }
 
     /* ── SCROLL REVEAL ── */
