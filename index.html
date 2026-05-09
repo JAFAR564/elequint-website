@@ -772,57 +772,35 @@
       aspect-ratio: 16 / 10;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--deep) 0%, var(--abyss) 100%);
+      background: var(--abyss);
     }
-    .portfolio-image::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 30% 50%, rgba(245,201,122,0.12) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(74,111,165,0.15) 0%, transparent 60%);
-      mix-blend-mode: screen;
+    .portfolio-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.4s;
+      filter: contrast(1.05) saturate(0.92) brightness(0.95);
+    }
+    .portfolio-card:hover .portfolio-image img {
+      transform: scale(1.05);
+      filter: contrast(1.1) saturate(1.05) brightness(1);
     }
     .portfolio-image::after {
       content: '';
       position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(192,200,216,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(192,200,216,0.04) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-    .portfolio-image-content {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 1.5rem;
+      background:
+        linear-gradient(180deg, transparent 40%, rgba(6,6,15,0.5) 90%, rgba(6,6,15,0.75) 100%),
+        radial-gradient(ellipse 100% 60% at 50% 100%, rgba(6,6,15,0.45) 0%, transparent 70%);
+      pointer-events: none;
       z-index: 1;
     }
-    .portfolio-image-icon {
-      width: 64px; height: 64px;
-      border: 1px solid rgba(245,201,122,0.4);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem;
-      position: relative;
-    }
-    .portfolio-image-icon::before {
+    .portfolio-image::before {
       content: '';
-      width: 24px; height: 24px;
-      background: radial-gradient(circle, var(--corona) 0%, var(--ember) 60%, transparent 80%);
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(245,201,122,0.5);
-    }
-    .portfolio-image-text {
-      font-family: 'Cinzel Decorative', serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      letter-spacing: 0.05em;
-      background: linear-gradient(135deg, var(--white), var(--corona));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 50%, rgba(245,201,122,0.04) 100%);
+      mix-blend-mode: overlay;
+      z-index: 1;
+      pointer-events: none;
     }
     .portfolio-content {
       padding: 1.5rem 1.5rem 1.6rem;
@@ -1750,10 +1728,7 @@
   <div class="portfolio-grid reveal reveal-delay-3">
     <article class="portfolio-card tilt-card">
       <div class="portfolio-image">
-        <div class="portfolio-image-content">
-          <div class="portfolio-image-icon"></div>
-          <div class="portfolio-image-text">Aetherborne<br>Saga</div>
-        </div>
+        <img src="brand_assets/portfolio/aetherborne-saga.png" alt="Aetherborne Saga — high-fantasy political RP visual" loading="lazy">
       </div>
       <div class="portfolio-content">
         <div class="portfolio-meta">
@@ -1768,10 +1743,7 @@
 
     <article class="portfolio-card tilt-card">
       <div class="portfolio-image">
-        <div class="portfolio-image-content">
-          <div class="portfolio-image-icon"></div>
-          <div class="portfolio-image-text">The Crimson<br>Court</div>
-        </div>
+        <img src="brand_assets/portfolio/crimson-court.png" alt="The Crimson Court — vampire dynasty in modern London" loading="lazy">
       </div>
       <div class="portfolio-content">
         <div class="portfolio-meta">
@@ -1786,10 +1758,7 @@
 
     <article class="portfolio-card tilt-card">
       <div class="portfolio-image">
-        <div class="portfolio-image-content">
-          <div class="portfolio-image-icon"></div>
-          <div class="portfolio-image-text">Voidshore<br>Codex</div>
-        </div>
+        <img src="brand_assets/portfolio/voidshore-codex.png" alt="Voidshore Codex — sci-fi worldbuilding with character progression" loading="lazy">
       </div>
       <div class="portfolio-content">
         <div class="portfolio-meta">
