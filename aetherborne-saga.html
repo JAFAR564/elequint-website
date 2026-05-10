@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Aetherborne Saga — Six Factions. One Shattered World.</title>
+  <meta name="description" content="1,400 active writers. 6 sovereign factions. 200+ canonical lore entries. The world's most intricate high-fantasy political roleplay community.">
+  <link rel="icon" type="image/png" href="brand_assets/Logo.png">
+  <meta name="theme-color" content="#07080f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --void: #07080f;
+      --abyss: #0b0d1a;
+      --deep: #0f1120;
+      --surface: #141728;
+      --crystal: #c4ccd8;
+      --silver: #8898b0;
+      --muted: #4a5570;
+      --corona: #e8b86d;
+      --corona-dim: rgba(232,184,109,0.08);
+      --corona-glow: rgba(232,184,109,0.22);
+      --arc: #5a8fc8;
+      --arc-dim: rgba(90,143,200,0.12);
+      --white: #edf1f9;
+      --border: rgba(196,204,216,0.08);
+      --border-bright: rgba(196,204,216,0.22);
+      --faction-1: #c8813a; /* Auric */
+      --faction-2: #4d8c5e; /* Thornveil */
+      --faction-3: #6e4e9a; /* Iron */
+      --faction-4: #8a6030; /* Ashen */
+      --faction-5: #3a7a8c; /* Tidecrown */
+      --faction-6: #7a3a3a; /* Hollow */
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--void);
+      color: var(--crystal);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise & ambient layers ── */
+    .noise-layer {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(7,8,15,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.9rem;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 28px; height: 28px; object-fit: contain; }
+    .nav-brand-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--corona);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2.4rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--void) !important;
+      background: var(--corona);
+      padding: 0.6rem 1.5rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--white) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px var(--corona-glow) !important;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('brand_assets/portfolio/aetherborne-saga.png');
+      background-size: cover;
+      background-position: center top;
+      filter: brightness(0.22) saturate(0.8);
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 20%, rgba(232,184,109,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 80%, rgba(7,8,15,0.95) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(7,8,15,0.3) 0%, rgba(7,8,15,0.0) 40%, rgba(7,8,15,0.85) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 820px;
+    }
+
+    .hero-overline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      color: var(--corona);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+    }
+    .hero-overline::before, .hero-overline::after {
+      content: '';
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--corona));
+    }
+    .hero-overline::after { transform: scaleX(-1); }
+
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      font-size: clamp(2.8rem, 7.5vw, 6.5rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(160deg, var(--white) 0%, var(--crystal) 45%, var(--corona) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes titleReveal {
+      from { opacity: 0; transform: translateY(24px); filter: blur(8px); }
+      to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
+    }
+
+    .hero-sub {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.9rem, 2vw, 1.3rem);
+      letter-spacing: 0.12em;
+      color: var(--silver);
+      margin-bottom: 2.5rem;
+      animation: titleReveal 1.2s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-style: italic;
+      color: var(--crystal);
+      max-width: 580px;
+      margin: 0 auto 3rem;
+      line-height: 1.9;
+      animation: titleReveal 1.2s 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes statFlyIn {
+      0%   { opacity: 0; transform: translateY(32px) scaleY(0.92); filter: blur(6px); }
+      55%  { opacity: 1; filter: blur(0); }
+      75%  { transform: translateY(-4px) scaleY(1.02); }
+      90%  { transform: translateY(1px) scaleY(0.99); }
+      100% { opacity: 1; transform: translateY(0) scaleY(1); filter: blur(0); }
+    }
+    @keyframes statBorderIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes numPulse {
+      0%   { text-shadow: 0 0 0 transparent; }
+      35%  { text-shadow: 0 0 18px rgba(232,184,109,0.9), 0 0 36px rgba(232,184,109,0.4); }
+      100% { text-shadow: 0 0 8px rgba(232,184,109,0.18); }
+    }
+
+    .hero-stats {
+      display: flex; gap: 0; justify-content: center;
+      border: 1px solid var(--border-bright);
+      margin: 0 auto 3.5rem;
+      max-width: 520px;
+      animation: statBorderIn 0.5s 0.38s ease both;
+    }
+    .hero-stat {
+      flex: 1; padding: 1.4rem 1.8rem;
+      border-right: 1px solid var(--border-bright);
+      text-align: center;
+      opacity: 0;
+      animation: statFlyIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .hero-stat:nth-child(1) { animation-delay: 0.42s; }
+    .hero-stat:nth-child(2) { animation-delay: 0.58s; }
+    .hero-stat:nth-child(3) { animation-delay: 0.74s; }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--corona);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-stat-num.pulsed {
+      animation: numPulse 1s ease-out forwards;
+    }
+    .hero-stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: titleReveal 1.2s 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .btn-primary {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--void);
+      background: var(--corona);
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 32px var(--corona-glow);
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(232,184,109,0.35);
+    }
+
+    .btn-ghost {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--crystal);
+      background: transparent;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      border: 1px solid var(--border-bright);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-ghost:hover {
+      border-color: var(--corona);
+      color: var(--corona);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .scroll-hint-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--corona), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+    .scroll-hint-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Section commons ── */
+    section { position: relative; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.45em;
+      color: var(--corona);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      color: var(--silver);
+      max-width: 560px;
+      line-height: 1.9;
+    }
+
+    /* ── Lore divider ── */
+    .lore-divider {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 3rem 2.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .lore-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .lore-divider-glyph {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.3em;
+    }
+
+    /* ── World section ── */
+    .world-section { padding: 7rem 0; }
+
+    .world-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .world-visual {
+      position: relative;
+    }
+
+    .world-img-frame {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .world-img-frame::before {
+      content: '';
+      position: absolute; inset: 0;
+      border: 1px solid var(--border-bright);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .world-img-frame::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--corona-dim) 0%, transparent 50%);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .world-img-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.75) brightness(0.7);
+    }
+
+    .world-corner {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--corona);
+      border-style: solid;
+      border-width: 0;
+    }
+    .world-corner-tl { top: -4px; left: -4px; border-top-width: 1px; border-left-width: 1px; }
+    .world-corner-tr { top: -4px; right: -4px; border-top-width: 1px; border-right-width: 1px; }
+    .world-corner-bl { bottom: -4px; left: -4px; border-bottom-width: 1px; border-left-width: 1px; }
+    .world-corner-br { bottom: -4px; right: -4px; border-bottom-width: 1px; border-right-width: 1px; }
+
+    .world-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .world-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.85rem;
+    }
+
+    .world-text .section-body { max-width: 100%; }
+    .world-text .section-body + .section-body { margin-top: 1rem; }
+
+    /* ── Factions ── */
+    .factions-section { padding: 7rem 0; background: var(--abyss); }
+
+    .factions-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    .factions-header .section-body { margin: 0 auto; }
+
+    .factions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .faction-card {
+      background: var(--abyss);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .faction-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--faction-color, var(--corona)), transparent);
+      opacity: 0.7;
+    }
+    .faction-card:hover { background: var(--deep); }
+
+    .faction-card:nth-child(1) { --faction-color: var(--faction-1); }
+    .faction-card:nth-child(2) { --faction-color: var(--faction-2); }
+    .faction-card:nth-child(3) { --faction-color: var(--faction-3); }
+    .faction-card:nth-child(4) { --faction-color: var(--faction-4); }
+    .faction-card:nth-child(5) { --faction-color: var(--faction-5); }
+    .faction-card:nth-child(6) { --faction-color: var(--faction-6); }
+
+    .faction-numeral {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--faction-color, var(--corona));
+      opacity: 0.1;
+      line-height: 1;
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      transition: opacity 0.3s;
+    }
+    .faction-card:hover .faction-numeral { opacity: 0.2; }
+
+    .faction-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--faction-color, var(--corona));
+      border: 1px solid var(--faction-color, var(--corona));
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 1.2rem;
+      opacity: 0.8;
+    }
+
+    .faction-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .faction-desc {
+      font-size: 0.88rem;
+      color: var(--silver);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .faction-traits {
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .faction-trait {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .faction-trait::before {
+      content: '';
+      width: 12px; height: 1px;
+      background: var(--faction-color, var(--corona));
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    /* ── Lore Archive ── */
+    .lore-section { padding: 7rem 0; }
+
+    .lore-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 5rem;
+      margin-top: 4rem;
+      align-items: start;
+    }
+
+    .lore-entries { display: flex; flex-direction: column; gap: 0; }
+
+    .lore-entry {
+      border-top: 1px solid var(--border);
+      padding: 1.6rem 0;
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 1.5rem;
+      align-items: start;
+      transition: background 0.2s;
+    }
+    .lore-entry:last-child { border-bottom: 1px solid var(--border); }
+    .lore-entry:hover { background: rgba(232,184,109,0.02); margin: 0 -1.5rem; padding: 1.6rem 1.5rem; }
+
+    .lore-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      padding-top: 0.15rem;
+    }
+
+    .lore-entry-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .lore-entry-desc {
+      font-size: 0.82rem;
+      color: var(--silver);
+      line-height: 1.65;
+    }
+
+    .lore-entry-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.46rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--corona);
+      border: 1px solid var(--corona-dim);
+      padding: 0.3rem 0.6rem;
+      white-space: nowrap;
+      margin-top: 0.1rem;
+    }
+
+    .lore-sidebar { position: sticky; top: 120px; }
+
+    .lore-counter-box {
+      border: 1px solid var(--border-bright);
+      padding: 2.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      background: var(--abyss);
+      position: relative;
+      overflow: hidden;
+    }
+    .lore-counter-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--corona), transparent);
+      opacity: 0.5;
+    }
+
+    .lore-counter-num {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: var(--corona);
+      line-height: 1;
+      display: block;
+    }
+    .lore-counter-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--silver);
+      margin-top: 0.6rem;
+      display: block;
+    }
+
+    .lore-cats {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .lore-cat-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .lore-cat-row:last-child { border-bottom: none; }
+    .lore-cat-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+    .lore-cat-count {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      color: var(--corona);
+    }
+
+    /* ── Writers / Community ── */
+    .community-section { padding: 7rem 0; background: var(--abyss); }
+
+    .community-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testimonial {
+      border: 1px solid var(--border);
+      padding: 2rem;
+      background: var(--void);
+      position: relative;
+    }
+    .testimonial::before {
+      content: '"';
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 4rem;
+      color: var(--corona);
+      opacity: 0.15;
+      position: absolute;
+      top: 0.8rem; left: 1.2rem;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--crystal);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+
+    .author-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      color: var(--corona);
+      flex-shrink: 0;
+    }
+
+    .author-info { flex: 1; }
+    .author-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .author-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.46rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .faction-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--faction-color, var(--corona));
+      flex-shrink: 0;
+    }
+
+    .community-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .metric-cell {
+      background: var(--abyss);
+      padding: 2rem;
+      text-align: center;
+    }
+    .metric-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--corona);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .metric-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── How we play ── */
+    .howto-section { padding: 7rem 0; }
+
+    .howto-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .howto-step {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .howto-step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.3em;
+      color: var(--corona);
+      margin-bottom: 1.2rem;
+      opacity: 0.7;
+    }
+    .step-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--silver);
+      line-height: 1.75;
+    }
+
+    /* ── Join / CTA ── */
+    .join-section {
+      padding: 9rem 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(232,184,109,0.04) 0%, transparent 70%),
+        var(--void);
+      text-align: center;
+    }
+
+    .join-inner { max-width: 680px; margin: 0 auto; }
+
+    .join-glyph {
+      width: 70px; height: 70px;
+      margin: 0 auto 3rem;
+      opacity: 0.8;
+    }
+    .join-glyph img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px var(--corona-glow));
+    }
+
+    .join-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--white) 0%, var(--crystal) 50%, var(--corona) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .join-body {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--silver);
+      line-height: 1.9;
+      margin-bottom: 3rem;
+    }
+
+    .join-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+
+    .join-note {
+      margin-top: 2.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .footer-brand em {
+      color: var(--silver);
+      font-style: normal;
+    }
+
+    .footer-credit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .footer-credit a {
+      color: var(--corona);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-credit a:hover { color: var(--white); }
+
+    /* ── Reveal animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Mobile ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+
+      .world-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .factions-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .community-metrics { grid-template-columns: repeat(2, 1fr); }
+      .howto-grid { grid-template-columns: repeat(2, 1fr); }
+      .howto-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .howto-step:nth-child(2n) { border-bottom: 1px solid var(--border); }
+      .howto-step:nth-child(3), .howto-step:nth-child(4) { border-bottom: none; }
+      .lore-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .lore-sidebar { position: static; }
+    }
+
+    @media (max-width: 600px) {
+      .section-inner { padding: 0 1.5rem; }
+      .hero { padding: 7rem 1.5rem 5rem; }
+      .hero-stats { flex-direction: column; max-width: 220px; }
+      .hero-stat { border-right: none; border-bottom: 1px solid var(--border-bright); }
+      .hero-stat:last-child { border-bottom: none; }
+      .factions-grid { grid-template-columns: 1fr; }
+      .community-metrics { grid-template-columns: 1fr 1fr; }
+      .howto-grid { grid-template-columns: 1fr; }
+      .howto-step { border-bottom: 1px solid var(--border); border-right: none; }
+      .footer-inner { flex-direction: column; text-align: center; gap: 1rem; }
+      .lore-entry { grid-template-columns: 60px 1fr; }
+      .lore-entry-cat { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise-layer"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="nav-brand">
+      <img src="brand_assets/Logo.png" alt="Elequint">
+      <span class="nav-brand-text">Elequint</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#world">The World</a></li>
+      <li><a href="#factions">Factions</a></li>
+      <li><a href="#lore">Lore Archive</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#join" class="nav-cta">Join the Saga</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-overline">High-Fantasy Political RP · Est. Year III of the Fracture</div>
+      <h1 class="hero-title">Aetherborne<br>Saga</h1>
+      <p class="hero-sub">Six Sovereign Factions. One Shattered World.</p>
+      <p class="hero-tagline">
+        When the Veilshatter broke the sky over Caldenmere, six peoples inherited its ruins.
+        Now they write the world's next chapter — one political move at a time.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="1400" data-suffix="" data-format="comma">1,400</span>
+          <span class="hero-stat-label">Active Writers</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="6" data-suffix="" data-format="plain">6</span>
+          <span class="hero-stat-label">Sovereign Factions</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="200" data-suffix="+" data-format="plain">200+</span>
+          <span class="hero-stat-label">Lore Entries</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#join" class="btn-primary">Enter the World</a>
+        <a href="#factions" class="btn-ghost">Explore Factions</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      <span class="scroll-hint-label">Descend</span>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="lore-divider">
+    <div class="lore-divider-line"></div>
+    <div class="lore-divider-glyph">The Architecture of the Broken World</div>
+    <div class="lore-divider-line"></div>
+  </div>
+
+  <!-- World -->
+  <section class="world-section" id="world">
+    <div class="section-inner">
+      <div class="world-grid">
+        <div class="world-visual reveal">
+          <div class="world-img-frame">
+            <img src="brand_assets/portfolio/aetherborne-saga.png" alt="Aetherborne Saga">
+            <div class="world-corner world-corner-tl"></div>
+            <div class="world-corner world-corner-tr"></div>
+            <div class="world-corner world-corner-bl"></div>
+            <div class="world-corner world-corner-br"></div>
+          </div>
+          <div class="world-tags">
+            <span class="world-tag">High Fantasy</span>
+            <span class="world-tag">Political Intrigue</span>
+            <span class="world-tag">Collaborative Lore</span>
+            <span class="world-tag">Prose-Style</span>
+            <span class="world-tag">Original World</span>
+            <span class="world-tag">Discord-Native</span>
+          </div>
+        </div>
+        <div class="world-text reveal">
+          <div class="section-label">The Setting</div>
+          <h2 class="section-title">The Realm of Caldenmere</h2>
+          <p class="section-body">
+            Three centuries after the Veilshatter sundered the sky and fractured the continent's aether-lines,
+            Caldenmere is a world of careful alliances and dangerous ambitions. Six sovereign factions
+            rose from the ruins — each inheriting a fragment of the old world's power, each convinced
+            their claim to the broken throne is the only legitimate one.
+          </p>
+          <p class="section-body">
+            This is not a world of simple evil. Every faction has survived impossible odds.
+            Every ruler has made choices they cannot take back. Every treaty hides a clause
+            that could shatter it. <em style="color: var(--corona); font-style: normal;">Writers here don't just inhabit a world — they shape its politics,
+            its history, and its future.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="lore-divider">
+    <div class="lore-divider-line"></div>
+    <div class="lore-divider-glyph">The Six Sovereign Powers</div>
+    <div class="lore-divider-line"></div>
+  </div>
+
+  <!-- Factions -->
+  <section class="factions-section" id="factions">
+    <div class="section-inner">
+      <div class="factions-header reveal">
+        <div class="section-label">The Factions</div>
+        <h2 class="section-title">Six Peoples. Six Philosophies of Power.</h2>
+        <p class="section-body">
+          Each faction offers a distinct playstyle, political structure, and lore depth.
+          Choose your allegiance — or play the fractures between them.
+        </p>
+      </div>
+      <div class="factions-grid">
+
+        <!-- Faction I -->
+        <div class="faction-card reveal">
+          <div class="faction-numeral">I</div>
+          <div class="faction-badge">Faction I · The Gilded Realm</div>
+          <div class="faction-name">The Auric Dominion</div>
+          <p class="faction-desc">
+            A mercantile empire built on the trade of aether-crystals and political marriages.
+            The Dominion controls the continent's three great overland routes and has turned wealth
+            into a form of sovereignty. Their motto: <em>"Gold does not rust."</em>
+          </p>
+          <div class="faction-traits">
+            <span class="faction-trait">Aristocratic Council of Eleven</span>
+            <span class="faction-trait">Trade Route Hegemony</span>
+            <span class="faction-trait">Aether-Crystal Monopoly</span>
+            <span class="faction-trait">Mercenary Auxiliaries</span>
+          </div>
+        </div>
+
+        <!-- Faction II -->
+        <div class="faction-card reveal">
+          <div class="faction-numeral">II</div>
+          <div class="faction-badge">Faction II · The Ancient Canopy</div>
+          <div class="faction-name">The Thornveil Court</div>
+          <p class="faction-desc">
+            A druidic sovereignty that predates the Fracture by four thousand years.
+            The Court does not govern — it tends. Its druids speak for the living world itself,
+            and their word carries the authority of a continent's oldest memory.
+          </p>
+          <div class="faction-traits">
+            <span class="faction-trait">Circle of Twelve Wardens</span>
+            <span class="faction-trait">Living Archive (The Deep Root)</span>
+            <span class="faction-trait">Fauna-Bond Legions</span>
+            <span class="faction-trait">Ageless Counsel</span>
+          </div>
+        </div>
+
+        <!-- Faction III -->
+        <div class="faction-card reveal">
+          <div class="faction-numeral">III</div>
+          <div class="faction-badge">Faction III · The Iron State</div>
+          <div class="faction-name">The Covenant of Tempered Steel</div>
+          <p class="faction-desc">
+            A forge-republic governed by a Senate of Guildmasters and elected Strategoi.
+            The Covenant believes that the only true sovereignty is the one you can defend.
+            They are the continent's finest military engineers and its most principled lawmakers.
+          </p>
+          <div class="faction-traits">
+            <span class="faction-trait">Senate of Forty-Eight Guilds</span>
+            <span class="faction-trait">Strategos Electoral System</span>
+            <span class="faction-trait">Warmachine Vanguard</span>
+            <span class="faction-trait">Codex of Tempered Law</span>
+          </div>
+        </div>
+
+        <!-- Faction IV -->
+        <div class="faction-card reveal">
+          <div class="faction-numeral">IV</div>
+          <div class="faction-badge">Faction IV · The Neutral Ground</div>
+          <div class="faction-name">The Ashen Conclave</div>
+          <p class="faction-desc">
+            A sovereign order of scholars who occupy the continent's geographic center —
+            and its political center too. The Conclave sells knowledge to all factions
+            and allegiance to none. They are the world's memory, its archives,
+            and its most dangerous neutral party.
+          </p>
+          <div class="faction-traits">
+            <span class="faction-trait">Grand Archivist Oligarchy</span>
+            <span class="faction-trait">The Unburning Library</span>
+            <span class="faction-trait">Treaty Notary Authority</span>
+            <span class="faction-trait">Forbidden Research Vaults</span>
+          </div>
+        </div>
+
+        <!-- Faction V -->
+        <div class="faction-card reveal">
+          <div class="faction-numeral">V</div>
+          <div class="faction-badge">Faction V · The Maritime League</div>
+          <div class="faction-name">The Tidecrown Collective</div>
+          <p class="faction-desc">
+            A federation of seventeen island-cities and coastal city-states united under
+            a rotating Admiralty. The Collective controls the seas, the trade winds,
+            and the world's most lucrative information networks. Their fleets have never
+            lost a blockade.
+          </p>
+          <div class="faction-traits">
+            <span class="faction-trait">Rotating Admiralty Council</span>
+            <span class="faction-trait">Seventeen Sovereign Ports</span>
+            <span class="faction-trait">The Windwhisper Network</span>
+            <span class="faction-trait">Tidal Compact Law</span>
+          </div>
+        </div>
+
+        <!-- Faction VI -->
+        <div class="faction-card reveal">
+          <div class="faction-numeral">VI</div>
+          <div class="faction-badge">Faction VI · The Undying Realm</div>
+          <div class="faction-name">The Hollow Throne</div>
+          <p class="faction-desc">
+            An undead sovereignty in the continent's northeastern wastes — feared, misunderstood,
+            and far more complex than the living give them credit for. The Hollow Throne
+            remembers every war. Their Lich-King has witnessed three centuries of other factions'
+            mistakes firsthand.
+          </p>
+          <div class="faction-traits">
+            <span class="faction-trait">Lich-King Absolute Monarchy</span>
+            <span class="faction-trait">Council of Remembered Dead</span>
+            <span class="faction-trait">The Pale March Legions</span>
+            <span class="faction-trait">Ancestral Memory Courts</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="lore-divider">
+    <div class="lore-divider-line"></div>
+    <div class="lore-divider-glyph">The Branched Lore Archive</div>
+    <div class="lore-divider-line"></div>
+  </div>
+
+  <!-- Lore Archive -->
+  <section class="lore-section" id="lore">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-label">Canon Archive</div>
+        <h2 class="section-title">200+ Entries. Every Word, Canonical.</h2>
+        <p class="section-body">
+          Every event, treaty, battle, and discovery ratified by the Conclave of Wardens
+          becomes part of the permanent record. The Archive is living history — writers cite it,
+          contradict it, and expand it with every plot arc.
+        </p>
+      </div>
+      <div class="lore-layout">
+        <div class="lore-entries">
+          <div class="lore-entry reveal">
+            <div class="lore-id">ARC-001</div>
+            <div>
+              <div class="lore-entry-title">The Veilshatter — Primary Account</div>
+              <p class="lore-entry-desc">The cataclysm that fractured the aether-lines and ended the Age of Confluence. Three scholars survived. Their accounts disagree on every detail except one.</p>
+            </div>
+            <div class="lore-entry-cat">Cosmology</div>
+          </div>
+          <div class="lore-entry reveal">
+            <div class="lore-id">ARC-014</div>
+            <div>
+              <div class="lore-entry-title">The Treaty of Ashen Ground</div>
+              <p class="lore-entry-desc">The armistice between the Covenant and the Hollow Throne after the War of Unquiet Graves. Seven clauses remain sealed by the Conclave.</p>
+            </div>
+            <div class="lore-entry-cat">Diplomacy</div>
+          </div>
+          <div class="lore-entry reveal">
+            <div class="lore-id">ARC-039</div>
+            <div>
+              <div class="lore-entry-title">The Deep Root — Thornveil Memory System</div>
+              <p class="lore-entry-desc">The living archive housed within the Canopy's oldest tree. Contains memories from before the Fracture. Access is non-negotiable.</p>
+            </div>
+            <div class="lore-entry-cat">Factions</div>
+          </div>
+          <div class="lore-entry reveal">
+            <div class="lore-id">ARC-058</div>
+            <div>
+              <div class="lore-entry-title">The Windwhisper Network — Known Nodes</div>
+              <p class="lore-entry-desc">Documented courier stations of the Tidecrown intelligence network. Sixteen of twenty-three nodes are known. The rest are the subject of active espionage.</p>
+            </div>
+            <div class="lore-entry-cat">Intelligence</div>
+          </div>
+          <div class="lore-entry reveal">
+            <div class="lore-id">ARC-091</div>
+            <div>
+              <div class="lore-entry-title">The Lich-King's Third Interregnum</div>
+              <p class="lore-entry-desc">A century-long gap in Hollow Throne records. What happened in the Pale Wastes is classified. Three factions have their own theories.</p>
+            </div>
+            <div class="lore-entry-cat">History</div>
+          </div>
+          <div class="lore-entry reveal">
+            <div class="lore-id">ARC-147</div>
+            <div>
+              <div class="lore-entry-title">Unburning Library — Restricted Stacks Index</div>
+              <p class="lore-entry-desc">A partial index of the Ashen Conclave's forbidden research vaults. The document itself is rated Access Level IV. This entry is its public shadow.</p>
+            </div>
+            <div class="lore-entry-cat">Forbidden</div>
+          </div>
+        </div>
+        <div class="lore-sidebar reveal">
+          <div class="lore-counter-box">
+            <span class="lore-counter-num" data-target="200">0</span>
+            <span class="lore-counter-label">Canonical Entries<br>and Counting</span>
+          </div>
+          <div class="lore-cats">
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">Cosmology</span>
+              <span class="lore-cat-count">24</span>
+            </div>
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">Factions</span>
+              <span class="lore-cat-count">58</span>
+            </div>
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">History</span>
+              <span class="lore-cat-count">41</span>
+            </div>
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">Diplomacy</span>
+              <span class="lore-cat-count">33</span>
+            </div>
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">Geography</span>
+              <span class="lore-cat-count">19</span>
+            </div>
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">Intelligence</span>
+              <span class="lore-cat-count">17</span>
+            </div>
+            <div class="lore-cat-row">
+              <span class="lore-cat-name">Forbidden</span>
+              <span class="lore-cat-count">11</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section class="community-section" id="community">
+    <div class="section-inner">
+      <div class="community-header reveal">
+        <div class="section-label">The Writers</div>
+        <h2 class="section-title">1,400 Voices. One Living World.</h2>
+        <p class="section-body" style="margin: 0 auto;">
+          Aetherborne Saga runs on the quality of its writers. We maintain prose standards,
+          lore consistency review, and active plot moderation so that every thread matters.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial reveal">
+          <p class="testimonial-text">
+            "I've been in political RP servers for six years. Aetherborne is the first one where
+            my faction's decisions actually changed the map. The Council thread from last month
+            rewrote three lore entries."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">VK</div>
+            <div class="author-info">
+              <div class="author-name">Valdris Kethmore</div>
+              <div class="author-role">Auric Dominion · Senior Legate</div>
+            </div>
+            <div class="faction-dot" style="--faction-color: var(--faction-1);"></div>
+          </div>
+        </div>
+
+        <div class="testimonial reveal">
+          <p class="testimonial-text">
+            "The Ashen Conclave playstyle is unlike anything I've written before.
+            You're not fighting — you're negotiating, archiving, and sometimes
+            carefully losing the right information to the right person at the right time."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">EL</div>
+            <div class="author-info">
+              <div class="author-name">Elara Lyndveil</div>
+              <div class="author-role">Ashen Conclave · Third Archivist</div>
+            </div>
+            <div class="faction-dot" style="--faction-color: var(--faction-4);"></div>
+          </div>
+        </div>
+
+        <div class="testimonial reveal">
+          <p class="testimonial-text">
+            "I joined to write a Hollow Throne necromancer. Three months later I'm running
+            my faction's entire diplomatic corps and co-authoring a lore expansion on
+            the Interregnum. The depth here has no ceiling."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MR</div>
+            <div class="author-info">
+              <div class="author-name">Morvan Rheise</div>
+              <div class="author-role">Hollow Throne · Shadow Envoy</div>
+            </div>
+            <div class="faction-dot" style="--faction-color: var(--faction-6);"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="community-metrics reveal">
+        <div class="metric-cell">
+          <span class="metric-num">1,400+</span>
+          <span class="metric-label">Active Writers</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-num">340+</span>
+          <span class="metric-label">Active Plot Threads</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-num">~50k</span>
+          <span class="metric-label">Words Written / Week</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-num">3 yrs</span>
+          <span class="metric-label">Continuous Operation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Play -->
+  <section class="howto-section">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-label">Getting Started</div>
+        <h2 class="section-title">Four Steps Into the Saga</h2>
+      </div>
+      <div class="howto-grid">
+        <div class="howto-step reveal">
+          <div class="step-num">01 / Join</div>
+          <div class="step-title">Enter the Server</div>
+          <p class="step-desc">
+            Apply via our Discord. Read the lore primer — it's 12 pages. Know what you're
+            stepping into before you arrive.
+          </p>
+        </div>
+        <div class="howto-step reveal">
+          <div class="step-num">02 / Choose</div>
+          <div class="step-title">Select Your Faction</div>
+          <p class="step-desc">
+            Study the six factions. Talk to current members. Choose the one whose philosophy
+            you can inhabit, not just the one with the best aesthetics.
+          </p>
+        </div>
+        <div class="howto-step reveal">
+          <div class="step-num">03 / Write</div>
+          <div class="step-title">Submit Your Character</div>
+          <p class="step-desc">
+            Character sheets are prose-format. Faction moderators review within 48 hours.
+            Your history should leave open questions — that's the point.
+          </p>
+        </div>
+        <div class="howto-step reveal">
+          <div class="step-num">04 / Shape</div>
+          <div class="step-title">Influence the World</div>
+          <p class="step-desc">
+            Every political action you take is tracked. Alliances shift. Borders move.
+            The lore archive grows with your story.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join CTA -->
+  <section class="join-section" id="join">
+    <div class="join-inner">
+      <div class="join-glyph">
+        <img src="brand_assets/Logo.png" alt="Elequint">
+      </div>
+      <h2 class="join-title">The Fracture<br>Is Still Being Written</h2>
+      <p class="join-body">
+        The Auric Dominion is negotiating. The Thornveil Court is watching the sky.
+        The Hollow Throne has not spoken in seven months. Something is shifting
+        in Caldenmere — and no one is steering it yet.
+      </p>
+      <div class="join-actions">
+        <a href="#" class="btn-primary">Enter the Saga</a>
+        <a href="#lore" class="btn-ghost">Browse the Archive</a>
+      </div>
+      <p class="join-note">Applications reviewed within 48 hours · All writing levels welcome · 18+ community</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <em>Aetherborne Saga</em> · A Caldenmere RP Community
+      </div>
+      <div class="footer-credit">
+        Web presence built by <a href="/">Elequint</a> · Eclipse of Legacies
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Hero stat count-up ──
+    function runCounter(el) {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const format = el.dataset.format;
+      const duration = 900;
+      const delay = parseFloat(getComputedStyle(el.closest('.hero-stat')).animationDelay) * 1000 + 480;
+
+      setTimeout(() => {
+        const start = performance.now();
+        const fmt = n => format === 'comma'
+          ? n.toLocaleString('en-US')
+          : String(n);
+
+        const tick = now => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = t < 1 ? 1 - Math.pow(1 - t, 3) : 1;
+          const val = Math.floor(eased * target);
+          el.textContent = fmt(val) + suffix;
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = fmt(target) + suffix;
+            el.classList.add('pulsed');
+          }
+        };
+        requestAnimationFrame(tick);
+      }, delay);
+    }
+
+    document.querySelectorAll('.hero-stat-num[data-count]').forEach(runCounter);
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+          observer.unobserve(el.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Lore counter ──
+    const counter = document.querySelector('[data-target]');
+    if (counter) {
+      const counterObs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          const target = parseInt(counter.dataset.target);
+          const duration = 1800;
+          const start = performance.now();
+          const tick = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            counter.textContent = Math.floor(eased * target) + (progress < 1 ? '' : '+');
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          counterObs.unobserve(counter);
+        }
+      }, { threshold: 0.5 });
+      counterObs.observe(counter);
+    }
+  </script>
+</body>
+</html>
